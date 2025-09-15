@@ -1,3 +1,34 @@
+:root {
+  /* Primitives */
+  --clr-dark-blue-300: hsla(218, 48%, 17%, 1);
+  --clr-dark-blue-400: hsla(218, 47%, 13%, 1);
+  --clr-dark-blue-500: hsla(218, 48%, 10%, 1);
+  --clr-light-blue-400: hsla(223, 87%, 76%, 1);
+  --clr-yellow-400: hsla(58, 99%, 72%, 1);
+  --clr-red-400: hsla(0, 68%, 60%, 1);
+
+  /* Background */
+  --clr-bg-primary: var(--clr-dark-blue-400);
+  --clr-bg-secondary: var(--clr-dark-blue-300);
+
+  /* Text */
+  --clr-text-primary: hsla(0, 0%, 100%, 1);
+  --clr-text-secondary: hsla(0, 0%, 65%, 1);
+  --clr-text-tertiary: hsla(0, 0%, 41%, 1);
+  --clr-text-light-blue: var(--clr-light-blue-400);
+
+  /* Divider */
+  --clr-divider-primary: hsla(217, 29%, 15%, 1);
+
+  /* List marker colors */
+  --clr-list-green: hsla(115, 63%, 77%, 1);
+  --clr-list-blue: hsla(209, 86%, 71%, 1);
+  --clr-list-pink: hsla(320, 94%, 73%, 1);
+  --clr-list-purple: hsla(265, 38%, 58%, 1);
+  --clr-list-orange: hsla(25, 89%, 60%, 1);
+  --clr-list-mint: hsla(173, 96%, 82%, 1);
+}
+
 *,
 *::before,
 *::after {
