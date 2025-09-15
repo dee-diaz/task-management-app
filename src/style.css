@@ -3,6 +3,7 @@
   --clr-dark-blue-300: hsla(218, 48%, 17%, 1);
   --clr-dark-blue-400: hsla(218, 47%, 13%, 1);
   --clr-dark-blue-500: hsla(218, 48%, 10%, 1);
+  --clr-dark-blue-700: hsla(215, 50%, 5%, 1);
   --clr-light-blue-400: hsla(223, 87%, 76%, 1);
   --clr-yellow-400: hsla(58, 99%, 72%, 1);
   --clr-red-400: hsla(0, 68%, 60%, 1);
@@ -29,6 +30,8 @@
   --clr-list-mint: hsla(173, 96%, 82%, 1);
 }
 
+
+/* Mini reset */
 *,
 *::before,
 *::after {
@@ -124,4 +127,11 @@ select {
   html {
     interpolate-size: allow-keywords;
   }
+}
+/* Mini reset end */
+
+
+/* Styles */
+body {
+  background-color: var(--clr-bg-primary);
 }
