@@ -11,6 +11,7 @@
   /* Background */
   --clr-bg-primary: var(--clr-dark-blue-400);
   --clr-bg-secondary: var(--clr-dark-blue-300);
+  --clr-bg-overlay: var(--clr-dark-blue-700);
 
   /* Text */
   --clr-text-primary: hsla(0, 0%, 100%, 1);

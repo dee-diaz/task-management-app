@@ -1,0 +1,1 @@
+// Pure sidebar display logic, no business rules

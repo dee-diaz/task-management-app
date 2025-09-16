@@ -1,0 +1,1 @@
+// Modal interaction management
