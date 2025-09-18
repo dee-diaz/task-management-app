@@ -3,19 +3,15 @@
  */
 
 class StorageInterface {
-  async save(key, value) {
-    throw new Error('Must implement');
-  }
-
-  async delete(key) {
-    throw new Error('Must implement');
-  }
-
   async get(key) {
     throw new Error('Must implement');
   }
 
-  async clear() {
+  async save(key, value) {
+    throw new Error('Must implement');
+  }
+
+  async remove(key) {
     throw new Error('Must implement');
   }
 }
