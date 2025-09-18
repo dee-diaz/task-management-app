@@ -12,6 +12,7 @@
   --clr-bg-primary: var(--clr-dark-blue-400);
   --clr-bg-secondary: var(--clr-dark-blue-300);
   --clr-bg-overlay: var(--clr-dark-blue-700);
+  --clr-bg-sidebar: hsla(218, 48%, 10%, 1);
 
   /* Text */
   --clr-text-primary: hsla(0, 0%, 100%, 1);
@@ -20,7 +21,7 @@
   --clr-text-light-blue: var(--clr-light-blue-400);
 
   /* Divider */
-  --clr-divider-primary: hsla(217, 29%, 15%, 1);
+  --clr-divider: hsla(217, 29%, 15%, 1);
 
   /* List marker colors */
   --clr-list-green: hsla(115, 63%, 77%, 1);
@@ -30,7 +31,6 @@
   --clr-list-orange: hsla(25, 89%, 60%, 1);
   --clr-list-mint: hsla(173, 96%, 82%, 1);
 }
-
 
 /* Mini reset */
 *,
@@ -131,8 +131,91 @@ select {
 }
 /* Mini reset end */
 
+/* Custom fonts */
+@font-face {
+  font-family: "Roobert PRO";
+  src: url("./assets/fonts/RoobertPRO-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert PRO";
+  src: url("./assets/fonts/RoobertPRO-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roobert PRO";
+  src: url("./assets/fonts/RoobertPRO-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Styles */
 body {
+  font-family: "Roobert PRO", sans-serif;
   background-color: var(--clr-bg-primary);
+  padding: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+  color: var(--clr-text-primary);
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sidebar {
+  background-color: var(--clr-bg-sidebar);
+  border-radius: 0 1rem 1rem 0;
+  border-top: 1px solid var(--clr-divider, #1c2533);
+  border-right: 1px solid var(--clr-divider, #1c2533);
+  border-bottom: 1px solid var(--clr-divider, #1c2533);
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding: 0.75rem;
+    overflow-y: hidden;
+  }
+
+  #content {
+    min-height: 97svh;
+    display: grid;
+    grid-template-columns: 22rem 1fr;
+  }
+
+  .sidebar {
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--clr-divider, #1c2533);
+
+    .top img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
 }
