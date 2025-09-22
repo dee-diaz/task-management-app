@@ -4,7 +4,6 @@ import LocalStorageAdapter from "./infrastructure/LocalStorageAdapter";
 import SidebarRenderer from "./presentation/renderers/SidebarRenderer";
 import { DEFAULT_LISTS } from "./utils/Constants";
 
-
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
@@ -17,29 +16,22 @@ class App {
   }
 
   // Sidebar interactions
-  
-
   updateSidebarCounters() {
     const tasks = this.taskManager.getTasks();
 
-    DEFAULT_LISTS.forEach(list => {
+    DEFAULT_LISTS.forEach((list) => {
       const count = FilterService.filterByList(tasks, list.id).length;
       this.sidebar.updateListCounter(list.id, count);
-    })
+    });
   }
 
-
-
-
-
   saveUserName(name) {
-    this.storage.save('user_name', name);
+    this.storage.save("user_name", name);
   }
 
   #bindEvents() {
     // some code;
   }
 }
-
 
 export default App;

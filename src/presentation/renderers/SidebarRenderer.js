@@ -74,6 +74,11 @@ class SidebarRenderer {
 
   setActiveList(listId) {
     // Visually highlights the active list
+    const allLists = document.querySelectorAll("[data-list]");
+    const attrName = listId.toLowerCase().replace(" ", "-");
+    allLists.forEach(list => list.classList.remove("active"));
+    const list = document.querySelector(`[data-list="${attrName}"]`);
+    list.classList.add("active");
   }
 
   initSidebar() {
@@ -89,9 +94,10 @@ class SidebarRenderer {
     sidebar.appendChild(defaultList);
     this.container.appendChild(sidebar);
 
-    // REMOVE LATER
+    // REVIEW LATER
     this.renderGreeting("Dee");
     this.renderDefaultLists(DEFAULT_LISTS);
+    this.setActiveList(DEFAULT_LISTS[0].id);
   }
 }
 
