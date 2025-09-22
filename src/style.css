@@ -62,6 +62,7 @@ ul {
   list-style: none;
 }
 
+
 body {
   min-height: 100vh;
   line-height: 1.5;
@@ -88,6 +89,7 @@ h4 {
 
 p {
   text-wrap: pretty;
+  margin: 0;
 }
 
 p,
@@ -100,6 +102,11 @@ h6 {
   overflow-wrap: break-word;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+
 img,
 picture {
   max-width: 100%;
@@ -109,7 +116,8 @@ picture {
 button {
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  background-color: transparent;
+  padding: 0;
 }
 
 input,
@@ -160,7 +168,8 @@ select {
 body {
   font-family: "Roobert PRO", sans-serif;
   background-color: var(--clr-bg-primary);
-  padding: 1rem;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
 }
 
 h1,
@@ -178,13 +187,16 @@ h3 {
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   background-color: var(--clr-bg-sidebar);
   border-radius: 0 1rem 1rem 0;
   border-top: 1px solid var(--clr-divider, #1c2533);
   border-right: 1px solid var(--clr-divider, #1c2533);
   border-bottom: 1px solid var(--clr-divider, #1c2533);
 
-  .top {
+  .greeting {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -192,6 +204,53 @@ h3 {
     img {
       width: 2rem;
       height: 2rem;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    > li button {
+      padding: 0.75rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 3rem;
+      color: var(--clr-text-secondary);
+      border-radius: 0.625rem;
+
+      > div {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        svg {
+          fill: var(--clr-text-secondary);
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+
+      span {
+        font-size: 0.875rem;
+      }
+
+      &.active {
+        background-color: var(--clr-bg-secondary);
+        color: var(--clr-text-light-blue);
+
+        p {
+          font-weight: 500;
+        }
+
+        svg {
+          fill: var(--clr-text-light-blue);
+        }
+      }
     }
   }
 }
@@ -213,7 +272,7 @@ h3 {
     border-radius: 1.5rem;
     border: 1px solid var(--clr-divider, #1c2533);
 
-    .top img {
+    .greeting img {
       width: 2.5rem;
       height: 2.5rem;
     }

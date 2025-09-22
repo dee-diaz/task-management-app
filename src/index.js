@@ -1,16 +1,8 @@
 import "./style.css";
 import App from "./App";
-import Task from "./domain/Task";
-import TaskManager from "./domain/TaskManager";
-
-const taskManager = new TaskManager();
-
-taskManager.addTask("Go for a walk", "nothing really");
-taskManager.addTask("Shave ass");
-taskManager.addTask("Cook dinner");
-taskManager.addTask("Dance");
 
 
-const tasks = taskManager.getAllTasks();
-
-console.log(tasks)
+const app = new App();
+app.taskManager.getTasks();
+// app.taskManager.saveTask("brew some coffee");
+// app.taskManager.deleteTask("4a699e22-35c5-418b-90b7-30b8276ec1fd")
