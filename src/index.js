@@ -4,5 +4,5 @@ import App from "./App";
 
 const app = new App();
 app.taskManager.getTasks();
-// app.taskManager.saveTask("brew some coffee");
-// app.taskManager.deleteTask("4a699e22-35c5-418b-90b7-30b8276ec1fd")
+// app.taskManager.saveTask("Call mom", "", "", "", "", "Today");
+// app.taskManager.deleteTask("2ac0615d-6874-4784-8f3f-504d52cc55d4")

@@ -1,5 +1,6 @@
 // CRUD operations, data management
 import Task from "./Task";
+import { DEFAULT_LISTS } from "../utils/Constants";
 
 class TaskManager {
   constructor(storageAdapter) {
@@ -17,12 +18,13 @@ class TaskManager {
     return this.tasks;
   }
 
-  saveTask(title, description, scheduleDate, deadlineDate, priority) {
+  saveTask(title, description, scheduleDate, deadlineDate, priority, list) {
     const newTask = new Task(title);
     (description) ? newTask.description = description : newTask.description = "";
-    (scheduleDate) ? newTask.scheduleDate = scheduleDate : newTask.scheduleDate = "";
+    (scheduleDate) ? newTask.scheduleDate = scheduleDate : newTask.scheduleDate = DEFAULT_LISTS[0].id;
     (deadlineDate) ? newTask.deadlineDate = deadlineDate : newTask.deadlineDate = "";
     (priority) ? newTask.priority = priority : newTask.priority = "";
+    if (list) newTask._lists.push(list); // List class logic - refactor later
     this.tasks.push(newTask);
     this.storage.save("tasks", this.tasks);
 

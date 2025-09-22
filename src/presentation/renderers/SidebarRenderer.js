@@ -5,7 +5,7 @@ import logoSvg from "../../assets/img/logo.svg";
 class SidebarRenderer {
   constructor(container) {
     this.container = container;
-    this.activeListId = "today";
+    this.activeListId = DEFAULT_LISTS[0].id;
     this.initSidebar();
   }
 
@@ -21,13 +21,14 @@ class SidebarRenderer {
   }
 
   renderDefaultLists(lists) {
-    // Today, All tasks, Completed с их счетчиками
+    // Today, All tasks, Completed with their counters
     const defaultList = document.querySelector(".default-list");
 
     lists.forEach((list) => {
       const li = document.createElement("li");
       const button = document.createElement("button");
-      button.setAttribute("data-list", list.id.toLowerCase());
+      const attrName = list.id.toLowerCase().replace(" ", "-");
+      button.setAttribute("data-list", attrName);
       const div = document.createElement("div");
 
       const svgns = "http://www.w3.org/2000/svg";
@@ -46,7 +47,7 @@ class SidebarRenderer {
       para.textContent = list.id;
 
       const counter = document.createElement("span");
-      counter.textContent = "12";
+      counter.textContent = "0";
 
       div.appendChild(svg);
       div.appendChild(para);
@@ -58,15 +59,21 @@ class SidebarRenderer {
   }
 
   renderCustomLists(lists) {
-    // Personal, Work, Family с их счетчиками
+    // Personal, Work, Family with their counters
   }
 
   updateListCounter(listId, count) {
-    // Обновляет конкретный счетчик без перерисовки всего сайдбара
+    // Updates a specific counter without re-rendeting the entire sidebar
+    const attrName = listId.toLowerCase().replace(" ", "-");
+    const counterEl = document.querySelector(`[data-list="${attrName}"] span`);
+    counterEl.textContent = count;
+
+    //Debug log
+    console.log(listId, count);
   }
 
   setActiveList(listId) {
-    // Визуально выделяет активный список
+    // Visually highlights the active list
   }
 
   initSidebar() {

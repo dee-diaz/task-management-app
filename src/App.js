@@ -1,6 +1,8 @@
 import TaskManager from "./domain/TaskManager";
+import FilterService from "./services/FilterService";
 import LocalStorageAdapter from "./infrastructure/LocalStorageAdapter";
 import SidebarRenderer from "./presentation/renderers/SidebarRenderer";
+import { DEFAULT_LISTS } from "./utils/Constants";
 
 
 // Orchestrates all layers, manages application state
@@ -10,8 +12,25 @@ class App {
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.sidebar = new SidebarRenderer(this.container);
-    this.#bindEvents();
+    this.updateSidebarCounters();
+    // this.#bindEvents();
   }
+
+  // Sidebar interactions
+  
+
+  updateSidebarCounters() {
+    const tasks = this.taskManager.getTasks();
+
+    DEFAULT_LISTS.forEach(list => {
+      const count = FilterService.filterByList(tasks, list.id).length;
+      this.sidebar.updateListCounter(list.id, count);
+    })
+  }
+
+
+
+
 
   saveUserName(name) {
     this.storage.save('user_name', name);
