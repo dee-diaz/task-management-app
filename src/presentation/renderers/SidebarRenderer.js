@@ -5,7 +5,7 @@ import logoSvg from "../../assets/img/logo.svg";
 class SidebarRenderer {
   constructor(container) {
     this.container = container;
-    this.activeListId = DEFAULT_LISTS[0].id;
+    this.activeListId = DEFAULT_LISTS.TODAY.id;
     this.initSidebar();
   }
 
@@ -23,7 +23,7 @@ class SidebarRenderer {
   renderDefaultLists(lists) {
     const defaultList = document.querySelector(".default-list");
 
-    lists.forEach((list) => {
+    Object.values(lists).forEach((list) => {
       const li = document.createElement("li");
       const button = document.createElement("button");
       const attrVal = list.id.toLowerCase().replace(" ", "-");

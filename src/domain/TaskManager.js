@@ -21,7 +21,7 @@ class TaskManager {
   saveTask(title, description, scheduleDate, deadlineDate, priority, list) {
     const newTask = new Task(title);
     (description) ? newTask.description = description : newTask.description = "";
-    (scheduleDate) ? newTask.scheduleDate = scheduleDate : newTask.scheduleDate = DEFAULT_LISTS[0].id;
+    (scheduleDate) ? newTask.scheduleDate = scheduleDate : newTask.scheduleDate = DEFAULT_LISTS.TODAY.id;
     (deadlineDate) ? newTask.deadlineDate = deadlineDate : newTask.deadlineDate = "";
     (priority) ? newTask.priority = priority : newTask.priority = "";
     if (list) newTask._lists.push(list); // List class logic - refactor later

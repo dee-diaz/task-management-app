@@ -19,7 +19,7 @@ class App {
   updateSidebarCounters() {
     const tasks = this.taskManager.getTasks();
 
-    DEFAULT_LISTS.forEach((list) => {
+    Object.values(DEFAULT_LISTS).forEach((list) => {
       const count = FilterService.filterByList(tasks, list.id).length;
       this.sidebar.updateListCounter(list.id, count);
     });
