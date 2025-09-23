@@ -62,7 +62,6 @@ ul {
   list-style: none;
 }
 
-
 body {
   min-height: 100vh;
   line-height: 1.5;
@@ -251,6 +250,32 @@ h3 {
           fill: var(--clr-text-light-blue);
         }
       }
+    }
+  }
+
+  .custom-list {
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    svg {
+      fill: none;
+    }
+
+    button.active svg {
+      fill: none;
+    }
+
+    > ul li:first-child button > div svg {
+      stroke: var(--clr-list-green);
+    }
+
+    > ul li:nth-child(2) button > div svg {
+      stroke: var(--clr-list-blue);
+    }
+
+    > ul li:nth-child(3) button > div svg {
+      stroke: var(--clr-list-pink);
     }
   }
 }

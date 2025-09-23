@@ -21,7 +21,6 @@ class SidebarRenderer {
   }
 
   renderDefaultLists(lists) {
-    // Today, All tasks, Completed with their counters
     const defaultList = document.querySelector(".default-list");
 
     lists.forEach((list) => {
@@ -63,7 +62,6 @@ class SidebarRenderer {
   }
 
   updateListCounter(listId, count) {
-    // Updates a specific counter without re-rendeting the entire sidebar
     const attrName = listId.toLowerCase().replace(" ", "-");
     const counterEl = document.querySelector(`[data-list="${attrName}"] span`);
     counterEl.textContent = count;
@@ -73,7 +71,6 @@ class SidebarRenderer {
   }
 
   setActiveList(listId) {
-    // Visually highlights the active list
     const allLists = document.querySelectorAll("[data-list]");
     const attrName = listId.toLowerCase().replace(" ", "-");
     allLists.forEach(list => list.classList.remove("active"));
@@ -90,14 +87,18 @@ class SidebarRenderer {
     const defaultList = document.createElement("ul");
     defaultList.className = "default-list";
 
+    const customList = document.createElement("ul");
+    customList.className = "custom-list";
+
     sidebar.appendChild(greeting);
     sidebar.appendChild(defaultList);
+    // sidebar.appendChild(customList);
     this.container.appendChild(sidebar);
 
     // REVIEW LATER
     this.renderGreeting("Dee");
     this.renderDefaultLists(DEFAULT_LISTS);
-    this.setActiveList(DEFAULT_LISTS[0].id);
+    this.setActiveList(this.activeListId);
   }
 }
 

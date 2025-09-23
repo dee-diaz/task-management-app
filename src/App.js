@@ -10,8 +10,8 @@ class App {
     this.container = document.querySelector("#content");
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
-    this.sidebar = new SidebarRenderer(this.container);
-    this.updateSidebarCounters();
+    // this.sidebar = new SidebarRenderer(this.container);
+    // this.updateSidebarCounters();
     // this.#bindEvents();
   }
 
