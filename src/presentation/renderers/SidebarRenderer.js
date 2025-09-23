@@ -1,4 +1,4 @@
-import { DEFAULT_LISTS, customLists } from "../../utils/Constants";
+import { DEFAULT_LISTS, LIST_TYPE, customLists } from "../../utils/Constants";
 import logoSvg from "../../assets/img/logo.svg";
 
 // Pure sidebar display logic, no business rules
@@ -20,8 +20,23 @@ class SidebarRenderer {
     greetingCont.appendChild(h3);
   }
 
-  renderDefaultLists(lists) {
-    const defaultList = document.querySelector(".default-list");
+  renderLists(lists, listType) {
+    let listTypeEl;
+    let h3;
+    let ulForCustom;
+
+    listType === LIST_TYPE.DEFAULT
+      ? (listTypeEl = document.querySelector(".default-list"))
+      : (listTypeEl = document.querySelector(".custom-list"));
+
+    if (listType === LIST_TYPE.CUSTOM) {
+      h3 = document.createElement("h3");
+      h3.textContent = "My lists";
+
+      ulForCustom = document.createElement("ul");
+      listTypeEl.appendChild(h3);
+      listTypeEl.appendChild(ulForCustom);
+    }
 
     Object.values(lists).forEach((list) => {
       const li = document.createElement("li");
@@ -32,15 +47,28 @@ class SidebarRenderer {
 
       const svgns = "http://www.w3.org/2000/svg";
       const svg = document.createElementNS(svgns, "svg");
-      svg.setAttribute("width", "20");
-      svg.setAttribute("height", "20");
-      svg.setAttribute("viewBox", "0 0 20 20");
-      svg.setAttribute("fill", "none");
 
-      const path = document.createElementNS(svgns, "path");
-      path.setAttribute("d", list.svgPath);
+      if (listType === LIST_TYPE.DEFAULT) {
+        svg.setAttribute("width", "20");
+        svg.setAttribute("height", "20");
+        svg.setAttribute("viewBox", "0 0 20 20");
+        svg.setAttribute("fill", "none");
 
-      svg.appendChild(path);
+        const path = document.createElementNS(svgns, "path");
+        path.setAttribute("d", list.svgPath);
+        svg.appendChild(path);
+      } else if (listType === LIST_TYPE.CUSTOM) {
+        svg.setAttribute("width", "12");
+        svg.setAttribute("height", "12");
+        svg.setAttribute("viewBox", "0 0 12 12");
+        svg.setAttribute("fill", "none");
+        const circle = document.createElementNS(svgns, "circle");
+        circle.setAttribute("cx", "6");
+        circle.setAttribute("cy", "6");
+        circle.setAttribute("r", "5.5");
+        circle.setAttribute("stroke", list.color);
+        svg.appendChild(circle);
+      }
 
       const para = document.createElement("p");
       para.textContent = list.id;
@@ -53,51 +81,10 @@ class SidebarRenderer {
       button.appendChild(div);
       button.appendChild(counter);
       li.appendChild(button);
-      defaultList.appendChild(li);
-    });
-  }
 
-  renderCustomLists(lists) {
-    const customList = document.querySelector(".custom-list");
-    const h3 = document.createElement("h3");
-    h3.textContent = "My lists";
-    const ul = document.createElement("ul");
-
-    customList.appendChild(h3);
-    customList.appendChild(ul);
-
-    Object.values(lists).forEach((list) => {
-      const li = document.createElement("li");
-      const button = document.createElement("button");
-      const attrVal = list.id.toLowerCase().replace(" ", "-");
-      button.setAttribute("data-list", attrVal);
-      const div = document.createElement("div");
-
-      const svgns = "http://www.w3.org/2000/svg";
-      const svg = document.createElementNS(svgns, "svg");
-      svg.setAttribute("width", "12");
-      svg.setAttribute("height", "12");
-      svg.setAttribute("viewBox", "0 0 12 12");
-      svg.setAttribute("fill", "none");
-      const circle = document.createElementNS(svgns, "circle");
-      circle.setAttribute("cx", "6");
-      circle.setAttribute("cy", "6");
-      circle.setAttribute("r", "5.5");
-      circle.setAttribute("stroke", list.color);
-      svg.appendChild(circle);
-
-      const para = document.createElement("p");
-      para.textContent = list.id;
-
-      const counter = document.createElement("span");
-      counter.textContent = "0";
-
-      div.appendChild(svg);
-      div.appendChild(para);
-      button.appendChild(div);
-      button.appendChild(counter);
-      li.appendChild(button);
-      ul.appendChild(li);
+      listType === LIST_TYPE.DEFAULT
+        ? listTypeEl.appendChild(li)
+        : ulForCustom.appendChild(li);
     });
   }
 
@@ -137,8 +124,8 @@ class SidebarRenderer {
 
     // REVIEW LATER
     this.renderGreeting("Dee");
-    this.renderDefaultLists(DEFAULT_LISTS);
-    this.renderCustomLists(customLists);
+    this.renderLists(DEFAULT_LISTS, LIST_TYPE.DEFAULT);
+    this.renderLists(customLists, LIST_TYPE.CUSTOM);
     this.setActiveList(this.activeListId);
   }
 }

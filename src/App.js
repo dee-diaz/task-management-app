@@ -18,16 +18,12 @@ class App {
   // Sidebar interactions
   updateSidebarCounters() {
     const tasks = this.taskManager.getTasks();
+    const mergedLists = {...DEFAULT_LISTS, ...customLists};
 
-    Object.values(DEFAULT_LISTS).forEach((list) => {
+    Object.values(mergedLists).forEach((list) => {
       const count = FilterService.filterByList(tasks, list.id).length;
       this.sidebar.updateListCounter(list.id, count);
     });
-
-    Object.values(customLists).forEach(list => {
-      const count = FilterService.filterByList(tasks, list.id).length;
-      this.sidebar.updateListCounter(list.id, count);
-    })
   }
 
   saveUserName(name) {

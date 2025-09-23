@@ -28,8 +28,7 @@ export const DEFAULT_LISTS = {
   },
 };
 
-
-// Custom lists are dynamic and editable. Can be removed 
+// Custom lists are dynamic and editable. Can be removed
 export const customLists = {
   personal: {
     id: "Personal",
@@ -43,4 +42,9 @@ export const customLists = {
     id: "Work",
     color: LIST_COLORS.PINK,
   },
+};
+
+export const LIST_TYPE = {
+  DEFAULT: "Default",
+  CUSTOM: "Custom",
 };
