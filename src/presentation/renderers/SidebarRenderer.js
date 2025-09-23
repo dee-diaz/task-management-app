@@ -1,4 +1,4 @@
-import { DEFAULT_LISTS } from "../../utils/Constants";
+import { DEFAULT_LISTS, customLists } from "../../utils/Constants";
 import logoSvg from "../../assets/img/logo.svg";
 
 // Pure sidebar display logic, no business rules
@@ -26,8 +26,8 @@ class SidebarRenderer {
     lists.forEach((list) => {
       const li = document.createElement("li");
       const button = document.createElement("button");
-      const attrName = list.id.toLowerCase().replace(" ", "-");
-      button.setAttribute("data-list", attrName);
+      const attrVal = list.id.toLowerCase().replace(" ", "-");
+      button.setAttribute("data-list", attrVal);
       const div = document.createElement("div");
 
       const svgns = "http://www.w3.org/2000/svg";
@@ -58,7 +58,47 @@ class SidebarRenderer {
   }
 
   renderCustomLists(lists) {
-    // Personal, Work, Family with their counters
+    const customList = document.querySelector(".custom-list");
+    const h3 = document.createElement("h3");
+    h3.textContent = "My lists";
+    const ul = document.createElement("ul");
+
+    customList.appendChild(h3);
+    customList.appendChild(ul);
+
+    Object.values(lists).forEach((list) => {
+      const li = document.createElement("li");
+      const button = document.createElement("button");
+      const attrVal = list.id.toLowerCase().replace(" ", "-");
+      button.setAttribute("data-list", attrVal);
+      const div = document.createElement("div");
+
+      const svgns = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(svgns, "svg");
+      svg.setAttribute("width", "12");
+      svg.setAttribute("height", "12");
+      svg.setAttribute("viewBox", "0 0 12 12");
+      svg.setAttribute("fill", "none");
+      const circle = document.createElementNS(svgns, "circle");
+      circle.setAttribute("cx", "6");
+      circle.setAttribute("cy", "6");
+      circle.setAttribute("r", "5.5");
+      circle.setAttribute("stroke", list.color);
+      svg.appendChild(circle);
+
+      const para = document.createElement("p");
+      para.textContent = list.id;
+
+      const counter = document.createElement("span");
+      counter.textContent = "0";
+
+      div.appendChild(svg);
+      div.appendChild(para);
+      button.appendChild(div);
+      button.appendChild(counter);
+      li.appendChild(button);
+      ul.appendChild(li);
+    });
   }
 
   updateListCounter(listId, count) {
@@ -73,7 +113,7 @@ class SidebarRenderer {
   setActiveList(listId) {
     const allLists = document.querySelectorAll("[data-list]");
     const attrName = listId.toLowerCase().replace(" ", "-");
-    allLists.forEach(list => list.classList.remove("active"));
+    allLists.forEach((list) => list.classList.remove("active"));
     const list = document.querySelector(`[data-list="${attrName}"]`);
     list.classList.add("active");
   }
@@ -87,17 +127,18 @@ class SidebarRenderer {
     const defaultList = document.createElement("ul");
     defaultList.className = "default-list";
 
-    const customList = document.createElement("ul");
+    const customList = document.createElement("div");
     customList.className = "custom-list";
 
     sidebar.appendChild(greeting);
     sidebar.appendChild(defaultList);
-    // sidebar.appendChild(customList);
+    sidebar.appendChild(customList);
     this.container.appendChild(sidebar);
 
     // REVIEW LATER
     this.renderGreeting("Dee");
     this.renderDefaultLists(DEFAULT_LISTS);
+    this.renderCustomLists(customLists);
     this.setActiveList(this.activeListId);
   }
 }

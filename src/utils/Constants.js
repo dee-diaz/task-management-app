@@ -1,10 +1,12 @@
+const styles = getComputedStyle(document.documentElement);
+
 const LIST_COLORS = {
-  GREEN: "green",
-  BLUE: "blue",
-  PINK: "pink",
-  PURPLE: "purple",
-  ORANGE: "orange",
-  MINT: "mint",
+  GREEN: styles.getPropertyValue("--clr-list-green").trim(),
+  BLUE: styles.getPropertyValue("--clr-list-blue").trim(),
+  PINK: styles.getPropertyValue("--clr-list-pink").trim(),
+  PURPLE: styles.getPropertyValue("--clr-list-purple").trim(),
+  ORANGE: styles.getPropertyValue("--clr-list-orange").trim(),
+  MINT: styles.getPropertyValue("--clr-list-mint").trim(),
 };
 
 export const DEFAULT_LISTS = [
