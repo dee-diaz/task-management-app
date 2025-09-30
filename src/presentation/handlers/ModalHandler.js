@@ -33,7 +33,7 @@ class ModalHandler {
   }
 
   handleNameSkip() {
-    const defaultName = "";
+    const defaultName = "buddy";
     this.modalRenderer.closeOnboardingModal();
     this.onComplete(defaultName);
   }

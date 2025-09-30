@@ -24,7 +24,7 @@ class App {
   }
 
   checkFirstStart() {
-    return (this.storage.get("user-name") === null) ? true : false;
+    return this.storage.get("user-name") === null;
   }
 
   init() {
