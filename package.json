@@ -6,17 +6,20 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --open --config webpack.dev.js",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "lint" : "eslint"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dee-diaz/task-management-app.git"
   },
-  "keywords": [],
   "author": "Diana Diaz",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "css-loader": "^7.1.2",
+    "eslint": "^9.36.0",
+    "globals": "^16.4.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.4",
     "style-loader": "^4.0.0",
