@@ -1,6 +1,6 @@
 // localStorage implementation
 
-import StorageInterface from "./StorageInterface";
+import StorageInterface from './StorageInterface';
 
 class LocalStorageAdapter extends StorageInterface {
   get(key) {
@@ -8,7 +8,7 @@ class LocalStorageAdapter extends StorageInterface {
       const data = localStorage.getItem(key);
       return data ? JSON.parse(data) : null;
     } catch (error) {
-      console.error("Error getting from localStorage", error);
+      console.error('Error getting from localStorage', error);
       return null;
     }
   }
@@ -17,7 +17,7 @@ class LocalStorageAdapter extends StorageInterface {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.error("Error saving to localStorage", error);
+      console.error('Error saving to localStorage', error);
     }
   }
 
@@ -25,7 +25,7 @@ class LocalStorageAdapter extends StorageInterface {
     try {
       localStorage.removeItem(key);
     } catch (error) {
-      console.error("Error removing from localStorage", error);
+      console.error('Error removing from localStorage', error);
     }
   }
 }

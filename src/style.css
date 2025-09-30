@@ -146,24 +146,24 @@ select {
 
 /* Custom fonts */
 @font-face {
-  font-family: "Roobert PRO";
-  src: url("./assets/fonts/RoobertPRO-Regular.woff2") format("woff2");
+  font-family: 'Roobert PRO';
+  src: url('./assets/fonts/RoobertPRO-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Roobert PRO";
-  src: url("./assets/fonts/RoobertPRO-Medium.woff2") format("woff2");
+  font-family: 'Roobert PRO';
+  src: url('./assets/fonts/RoobertPRO-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Roobert PRO";
-  src: url("./assets/fonts/RoobertPRO-Bold.woff2") format("woff2");
+  font-family: 'Roobert PRO';
+  src: url('./assets/fonts/RoobertPRO-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -171,7 +171,7 @@ select {
 
 /* Styles */
 body {
-  font-family: "Roobert PRO", sans-serif;
+  font-family: 'Roobert PRO', sans-serif;
   background-color: var(--clr-bg-primary);
   text-rendering: optimizeSpeed;
   line-height: 1.5;

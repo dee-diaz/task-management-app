@@ -7,10 +7,8 @@ class Task {
     this.scheduleDate = scheduleDate;
     this.deadlineDate = deadlineDate;
     this.priority = priority;
-    this._lists = ["All tasks"];
+    this._lists = ['All tasks'];
   }
 }
-
-
 
 export default Task;

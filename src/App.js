@@ -1,11 +1,11 @@
-import TaskManager from "./domain/TaskManager";
-import FilterService from "./services/FilterService";
-import LocalStorageAdapter from "./infrastructure/LocalStorageAdapter";
-import SidebarRenderer from "./presentation/renderers/SidebarRenderer";
-import ModalRenderer from "./presentation/renderers/ModalRenderer";
-import ModalHandler from "./presentation/handlers/ModalHandler";
-import { DEFAULT_LISTS, customLists } from "./utils/Constants";
-import TaskRenderer from "./presentation/renderers/TaskRenderer";
+import TaskManager from './domain/TaskManager';
+import FilterService from './services/FilterService';
+import LocalStorageAdapter from './infrastructure/LocalStorageAdapter';
+import SidebarRenderer from './presentation/renderers/SidebarRenderer';
+import ModalRenderer from './presentation/renderers/ModalRenderer';
+import ModalHandler from './presentation/handlers/ModalHandler';
+import { DEFAULT_LISTS, customLists } from './utils/Constants';
+import TaskRenderer from './presentation/renderers/TaskRenderer';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -15,7 +15,7 @@ class App {
     this.taskManager = new TaskManager(this.storage);
     this.firstStart = this.checkFirstStart();
     this.userName;
-    this.container = document.querySelector("#content");
+    this.container = document.querySelector('#content');
     this.sidebar = new SidebarRenderer(this.container);
     this.modal = new ModalRenderer(this.container);
     this.modalHandler = new ModalHandler(this.modal, (userName) => {
@@ -27,11 +27,11 @@ class App {
   }
 
   checkFirstStart() {
-    return this.storage.get("user-name") === null;
+    return this.storage.get('user-name') === null;
   }
 
   loadUserName() {
-    this.userName = this.storage.get("user-name");
+    this.userName = this.storage.get('user-name');
   }
 
   // Sidebar interactions
@@ -45,9 +45,8 @@ class App {
     });
   }
 
- 
   handleOnboardingComplete(userName) {
-    this.storage.save("user-name", userName);
+    this.storage.save('user-name', userName);
     this.userName = userName;
     this.renderMainApp();
   }
