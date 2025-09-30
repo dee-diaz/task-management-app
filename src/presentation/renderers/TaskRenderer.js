@@ -16,7 +16,8 @@ class TaskRenderer {
       const para = document.createElement("p");
       para.setAttribute("id", "todays-date");
       para.textContent = today;
-      main.appendChild(para);
+      const secondChild = main.children[1];
+      main.insertBefore(para, secondChild);
     }
   }
 
@@ -26,8 +27,8 @@ class TaskRenderer {
 
     const h1 = document.createElement("h1");
     h1.setAttribute("id", "list-title");
-    main.appendChild(h1);
 
+    main.appendChild(h1);
     this.container.appendChild(main);
   }
 }
