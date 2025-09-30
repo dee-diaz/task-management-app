@@ -1,38 +1,42 @@
 // Modal interaction management
 class ModalHandler {
-  constructor(modalRenderer) {
+  constructor(modalRenderer, onComplete) {
     this.modalRenderer = modalRenderer;
-    this.currentStep = 1;
-
-    this.bindEventListeners();
+    this.onComplete = onComplete;
+    this.onboardingStep = 1;
+    this.bindEvents();
   }
 
-  bindEventListeners() {
+  bindEvents() {
     // Event delegation for all modals
     document.addEventListener("click", (e) => {
-      if (e.target.matches(".btn-continue")) {
+      if (e.target.matches("#modal-start .btn-continue")) {
         this.handleStartModalContinue(e);
       }
-      if (e.target.matches(".btn-skip")) {
+      if (e.target.matches("#modal-start .btn-skip")) {
         this.handleNameSkip();
       }
     });
   }
 
   handleStartModalContinue(e) {
-    if (this.currentStep === 1) {
+    if (this.onboardingStep === 1) {
       this.modalRenderer.renderOnboardingSecondStep();
-      this.currentStep = 2;
-    } else if (this.currentStep === 2) {
+      this.onboardingStep = 2;
+    } else if (this.onboardingStep === 2) {
       e.preventDefault();
-      console.log("Continue");
+      this.onboardingStep = null;
+      const inputVal = document.querySelector("#modal-start input").value;
+      this.modalRenderer.closeOnboardingModal();
+      this.onComplete(inputVal);
     }
   }
 
   handleNameSkip() {
-    console.log("Skip");
+    const defaultName = "";
+    this.modalRenderer.closeOnboardingModal();
+    this.onComplete(defaultName);
   }
 }
-
 
 export default ModalHandler;

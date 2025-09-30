@@ -89,6 +89,11 @@ class ModalRenderer {
     modal.appendChild(actionsDiv);
     modal.appendChild(pagination);
   }
+
+  closeOnboardingModal() {
+    const modal = document.querySelector("#modal-start");
+    modal.remove();
+  }
 }
 
 export default ModalRenderer;

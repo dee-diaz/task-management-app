@@ -9,26 +9,43 @@ import { DEFAULT_LISTS, customLists } from "./utils/Constants";
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
-    this.firstStart = true;
-    this.container = document.querySelector("#content");
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
-    // this.sidebar = new SidebarRenderer(this.container);
+    this.firstStart = this.checkFirstStart();
+    this.userName;
+    this.container = document.querySelector("#content");
+    this.sidebar = new SidebarRenderer(this.container);
     this.modal = new ModalRenderer(this.container);
-    // this.updateSidebarCounters();
-    this.showModal();
-    this.modalHandler = new ModalHandler(this.modal);
+    this.init();
+    this.modalHandler = new ModalHandler(this.modal, (userName) => {
+      this.handleOnboardingComplete(userName);
+    });
     // this.bindEvents();
   }
 
-  showModal() {
-    if (this.firstStart === true) this.modal.showOnboardingModal();
+  checkFirstStart() {
+    return (this.storage.get("user-name") === null) ? true : false;
   }
+
+  init() {
+    // if first start - show modal
+    if (this.firstStart === true) {
+      this.modal.showOnboardingModal();
+    } else {
+      this.loadUserName();
+      this.renderMainApp();
+    }
+  }
+
+  loadUserName() {
+    this.userName = this.storage.get("user-name");
+  }
+
 
   // Sidebar interactions
   updateSidebarCounters() {
     const tasks = this.taskManager.getTasks();
-    const mergedLists = {...DEFAULT_LISTS, ...customLists};
+    const mergedLists = { ...DEFAULT_LISTS, ...customLists };
 
     Object.values(mergedLists).forEach((list) => {
       const count = FilterService.filterByList(tasks, list.id).length;
@@ -36,8 +53,16 @@ class App {
     });
   }
 
-  saveUserName(name) {
-    this.storage.save("user_name", name);
+ 
+  handleOnboardingComplete(userName) {
+    this.storage.save("user-name", userName);
+    this.userName = userName;
+    this.renderMainApp();
+  }
+
+  renderMainApp() {
+    this.sidebar.init(this.userName);
+    this.updateSidebarCounters();
   }
 
   bindEvents() {

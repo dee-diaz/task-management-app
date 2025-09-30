@@ -6,7 +6,6 @@ class SidebarRenderer {
   constructor(container) {
     this.container = container;
     this.activeListId = DEFAULT_LISTS.TODAY.id;
-    this.initSidebar();
   }
 
   renderGreeting(userName) {
@@ -131,7 +130,7 @@ class SidebarRenderer {
     list.classList.add("active");
   }
 
-  initSidebar() {
+  init(userName) {
     const sidebar = document.createElement("div");
     sidebar.className = "sidebar";
     const greeting = document.createElement("div");
@@ -149,7 +148,7 @@ class SidebarRenderer {
     this.container.appendChild(sidebar);
 
     // REVIEW LATER
-    this.renderGreeting("Dee");
+    this.renderGreeting(userName);
     this.renderLists(DEFAULT_LISTS, LIST_TYPE.DEFAULT);
     this.renderLists(customLists, LIST_TYPE.CUSTOM);
     this.setActiveList(this.activeListId);
