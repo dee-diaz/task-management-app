@@ -5,10 +5,12 @@ import SidebarRenderer from "./presentation/renderers/SidebarRenderer";
 import ModalRenderer from "./presentation/renderers/ModalRenderer";
 import ModalHandler from "./presentation/handlers/ModalHandler";
 import { DEFAULT_LISTS, customLists } from "./utils/Constants";
+import TaskRenderer from "./presentation/renderers/TaskRenderer";
 
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
+    this.activeListId = DEFAULT_LISTS.TODAY.id;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.firstStart = this.checkFirstStart();
@@ -16,10 +18,11 @@ class App {
     this.container = document.querySelector("#content");
     this.sidebar = new SidebarRenderer(this.container);
     this.modal = new ModalRenderer(this.container);
-    this.init();
     this.modalHandler = new ModalHandler(this.modal, (userName) => {
       this.handleOnboardingComplete(userName);
     });
+    this.taskRenderer = new TaskRenderer(this.container);
+    this.init();
     // this.bindEvents();
   }
 
@@ -27,20 +30,9 @@ class App {
     return this.storage.get("user-name") === null;
   }
 
-  init() {
-    // if first start - show modal
-    if (this.firstStart === true) {
-      this.modal.showOnboardingModal();
-    } else {
-      this.loadUserName();
-      this.renderMainApp();
-    }
-  }
-
   loadUserName() {
     this.userName = this.storage.get("user-name");
   }
-
 
   // Sidebar interactions
   updateSidebarCounters() {
@@ -62,11 +54,23 @@ class App {
 
   renderMainApp() {
     this.sidebar.init(this.userName);
+    this.sidebar.setActiveList(this.activeListId);
     this.updateSidebarCounters();
+    this.taskRenderer.init();
+    this.taskRenderer.renderListTitle(this.activeListId);
   }
 
   bindEvents() {
     // some code;
+  }
+
+  init() {
+    if (this.firstStart === true) {
+      this.modal.showOnboardingModal();
+    } else {
+      this.loadUserName();
+      this.renderMainApp();
+    }
   }
 }
 

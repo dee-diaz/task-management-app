@@ -1,1 +1,0 @@
-// Pure list display logic, no business rules

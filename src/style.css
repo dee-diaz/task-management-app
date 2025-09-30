@@ -211,6 +211,12 @@ h3 {
   font-weight: 700;
 }
 
+#list-title {
+  color: var(--clr-text-light-blue);
+  font-size: clamp(1.875rem, 1.4712rem + 1.7949vw, 2.75rem);
+  font-weight: 700;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -441,6 +447,7 @@ dialog {
     min-height: 97svh;
     display: grid;
     grid-template-columns: 22rem 1fr;
+    gap: 6.5rem;
   }
 
   .sidebar {
@@ -484,5 +491,9 @@ dialog {
     input {
       margin-bottom: 2rem;
     }
+  }
+
+  .main {
+    border: 4px dashed var(--clr-divider);
   }
 }
