@@ -26,7 +26,7 @@ class ModalHandler {
     } else if (this.onboardingStep === 2) {
       e.preventDefault();
       this.onboardingStep = null;
-      const inputVal = document.querySelector("#modal-start input").value;
+      const inputVal = document.querySelector("#modal-start input").value || "buddy";
       this.modalRenderer.closeOnboardingModal();
       this.onComplete(inputVal);
     }
