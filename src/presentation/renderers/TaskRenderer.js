@@ -14,7 +14,7 @@ class TaskRenderer {
     if (listId === DEFAULT_LISTS.TODAY.id) {
       const today = format(new Date(), 'EEEE, MMMM d');
       const para = document.createElement('p');
-      para.setAttribute('id', 'todays-date');
+      para.id = 'todays-date';
       para.textContent = today;
       const secondChild = main.children[1];
       main.insertBefore(para, secondChild);
@@ -26,9 +26,15 @@ class TaskRenderer {
     main.className = 'main';
 
     const h1 = document.createElement('h1');
-    h1.setAttribute('id', 'list-title');
+    h1.id = 'list-title';
+
+    const addBtn = document.createElement('button');
+    addBtn.className = 'btn btn-add';
+    addBtn.id = 'btn-add';
+    addBtn.textContent = 'Add new task';
 
     main.appendChild(h1);
+    main.appendChild(addBtn);
     this.container.appendChild(main);
   }
 }
