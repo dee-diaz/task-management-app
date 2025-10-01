@@ -23,7 +23,7 @@ class App {
     });
     this.taskRenderer = new TaskRenderer(this.container);
     this.init();
-    // this.bindEvents();
+    this.bindEvents();
   }
 
   checkFirstStart() {
@@ -59,10 +59,6 @@ class App {
     this.taskRenderer.renderListTitle(this.activeListId);
   }
 
-  bindEvents() {
-    // some code;
-  }
-
   init() {
     if (this.firstStart === true) {
       this.modal.showOnboardingModal();
@@ -71,6 +67,16 @@ class App {
       this.renderMainApp();
     }
   }
+
+  bindEvents() {
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('#btn-add')) {
+        console.log("yes you clicked, so what?")
+      }
+    })
+  }
+
+  
 }
 
 export default App;
