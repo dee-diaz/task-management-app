@@ -467,6 +467,7 @@ dialog {
 .task-list-item {
   padding-block: 0.75rem;
   color: var(--clr-text-primary);
+  border-bottom: 0.5px solid var(--clr-divider);
 
   .input-wrapper {
     display: flex;
