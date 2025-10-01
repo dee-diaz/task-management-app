@@ -51,12 +51,23 @@ class App {
     this.renderMainApp();
   }
 
+  renderTaskList(listId) {
+    const taskList = document.querySelector('.task-list');
+    const tasks = this.taskManager.getTasks();
+    const tasksFiltered = FilterService.filterByList(tasks, listId);
+    tasksFiltered.forEach((task) => {
+      const li = this.taskRenderer.renderTask(task._id, task.title);
+      taskList.appendChild(li);
+    });
+  }
+
   renderMainApp() {
     this.sidebar.init(this.userName);
     this.sidebar.setActiveList(this.activeListId);
     this.updateSidebarCounters();
     this.taskRenderer.init();
     this.taskRenderer.renderListTitle(this.activeListId);
+    this.renderTaskList(this.activeListId);
   }
 
   init() {
@@ -71,12 +82,10 @@ class App {
   bindEvents() {
     document.addEventListener('click', (e) => {
       if (e.target.matches('#btn-add')) {
-        console.log("yes you clicked, so what?")
+        console.log('yes you clicked, so what?');
       }
-    })
+    });
   }
-
-  
 }
 
 export default App;
