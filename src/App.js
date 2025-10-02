@@ -57,10 +57,7 @@ class App {
     const tasks = this.taskManager.getTasks();
     const tasksFiltered = FilterService.filterByList(tasks, listId);
     tasksFiltered.forEach((task) => {
-      const taskListArr = task._lists;
-      const customListsArr = Object.values(customLists).map(item => item.id);
-      const customList = taskListArr.filter(item => customListsArr.includes(item));
-
+      const customList = FilterService.defineCustomList(task);
       const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority, customList);
       taskList.appendChild(li);
     });
