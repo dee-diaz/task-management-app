@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
-    this.activeListId = DEFAULT_LISTS.TODAY.id;
+    this.activeListId = DEFAULT_LISTS.ALL_TASKS.id;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.firstStart = this.checkFirstStart();
@@ -57,7 +57,11 @@ class App {
     const tasks = this.taskManager.getTasks();
     const tasksFiltered = FilterService.filterByList(tasks, listId);
     tasksFiltered.forEach((task) => {
-      const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority);
+      const taskListArr = task._lists;
+      const customListsArr = Object.values(customLists).map(item => item.id);
+      const customList = taskListArr.filter(item => customListsArr.includes(item));
+
+      const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority, customList);
       taskList.appendChild(li);
     });
 
