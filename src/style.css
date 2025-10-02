@@ -505,6 +505,27 @@ dialog {
           transform: translate(-50%, -50%);
         }
       }
+
+      &.low {
+        border-color: var(--clr-text-light-blue);
+        &:checked {
+          border-color: var(--clr-text-secondary);
+        }
+      }
+
+      &.medium {
+        border-color: var(--clr-yellow-400);
+        &:checked {
+          border-color: var(--clr-text-secondary);
+        }
+      }
+
+      &.high {
+        border-color: var(--clr-red-400);
+        &:checked {
+          border-color: var(--clr-text-secondary);
+        }
+      }
     }
 
     input[type='checkbox']:checked ~ label {

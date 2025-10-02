@@ -56,12 +56,14 @@ class App {
     const taskList = document.querySelector('.task-list');
     const tasks = this.taskManager.getTasks();
     const tasksFiltered = FilterService.filterByList(tasks, listId);
-    // tasksFiltered.forEach((task) => {
-    //   const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority);
-    //   taskList.appendChild(li);
-    // });
-    const li = this.taskRenderer.renderTask('836728921', 'Cancel Netlfix subscription', 'October 3', PRIORITY.MEDIUM, 'Family');
-    taskList.appendChild(li);
+    tasksFiltered.forEach((task) => {
+      const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority);
+      taskList.appendChild(li);
+    });
+
+    // Mock
+    // const li = this.taskRenderer.renderTask('836728921', 'Cancel Netlfix subscription', 'October 3', PRIORITY.MEDIUM, 'Family');
+    // taskList.appendChild(li);
   }
 
   renderMainApp() {

@@ -42,12 +42,15 @@ class TaskRenderer {
     switch (priority) {
       case PRIORITY.LOW:
         span.textContent = '!';
+        checkbox.classList.add(PRIORITY.LOW.toLowerCase());
         break;
       case PRIORITY.MEDIUM:
         span.textContent = '!!';
+        checkbox.classList.add(PRIORITY.MEDIUM.toLowerCase());
         break;
       case PRIORITY.HIGH:
         span.textContent = '!!!';
+        checkbox.classList.add(PRIORITY.HIGH.toLowerCase());
         break;
     }
 
