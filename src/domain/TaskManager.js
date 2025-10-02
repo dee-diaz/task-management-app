@@ -30,7 +30,10 @@ class TaskManager {
       ? (newTask.deadlineDate = deadlineDate)
       : (newTask.deadlineDate = '');
     priority ? (newTask.priority = priority) : (newTask.priority = '');
-    if (list) newTask._lists.push(list); // List class logic - refactor later
+    
+    // List logic
+    if (scheduleDate === 'Today' || !scheduleDate) newTask._lists.push('Today');
+    if (list) newTask._lists.push(list);
     this.tasks.push(newTask);
     this.storage.save('tasks', this.tasks);
 
