@@ -1,4 +1,4 @@
-import { DEFAULT_LISTS } from '../../utils/Constants';
+import { DEFAULT_LISTS, PRIORITY } from '../../utils/Constants';
 import { format } from 'date-fns';
 
 class TaskRenderer {
@@ -21,16 +21,14 @@ class TaskRenderer {
     }
   }
 
-  renderTask(id, title) {
+  renderTask(id, title, deadlineDate, priority, list) {
     const li = document.createElement('li');
     li.setAttribute('data-id', id);
     li.className = 'task-list-item';
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.id = id;
     const label = document.createElement('label');
-    label.setAttribute('for', id);
     label.textContent = title;
     const inputWrapper = document.createElement('div');
     inputWrapper.className = 'input-wrapper';
@@ -39,24 +37,34 @@ class TaskRenderer {
 
     const rowTop = document.createElement('div');
     rowTop.className = 'row-top';
-    const priority = document.createElement('span');
-    priority.className = 'priority';
-    priority.textContent = '!!';
+    const span = document.createElement('span');
+    span.className = `priority ${priority.toLowerCase()}`;
+    switch (priority) {
+      case PRIORITY.LOW:
+        span.textContent = '!';
+        break;
+      case PRIORITY.MEDIUM:
+        span.textContent = '!!';
+        break;
+      case PRIORITY.HIGH:
+        span.textContent = '!!!';
+        break;
+    }
 
     const rowBottom = document.createElement('div');
     rowBottom.className = 'row-bottom';
     const due = document.createElement('span');
     due.className = 'due';
-    due.textContent = `Due tomorrow`;
+    if (deadlineDate) due.textContent = `Due ${deadlineDate}`;
     const customListName = document.createElement('span');
     customListName.className = 'custom-list';
-    customListName.textContent = `Work`
+    customListName.textContent = list;
 
     rowBottom.appendChild(due);
     rowBottom.appendChild(customListName);
 
     rowTop.appendChild(inputWrapper);
-    rowTop.appendChild(priority);
+    rowTop.appendChild(span);
 
     li.appendChild(rowTop);
     li.appendChild(rowBottom);

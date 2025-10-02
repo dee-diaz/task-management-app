@@ -4,8 +4,9 @@ import LocalStorageAdapter from './infrastructure/LocalStorageAdapter';
 import SidebarRenderer from './presentation/renderers/SidebarRenderer';
 import ModalRenderer from './presentation/renderers/ModalRenderer';
 import ModalHandler from './presentation/handlers/ModalHandler';
-import { DEFAULT_LISTS, customLists } from './utils/Constants';
+import { DEFAULT_LISTS, customLists, PRIORITY } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
+import { format } from 'date-fns';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -55,10 +56,12 @@ class App {
     const taskList = document.querySelector('.task-list');
     const tasks = this.taskManager.getTasks();
     const tasksFiltered = FilterService.filterByList(tasks, listId);
-    tasksFiltered.forEach((task) => {
-      const li = this.taskRenderer.renderTask(task._id, task.title);
-      taskList.appendChild(li);
-    });
+    // tasksFiltered.forEach((task) => {
+    //   const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority);
+    //   taskList.appendChild(li);
+    // });
+    const li = this.taskRenderer.renderTask('836728921', 'Cancel Netlfix subscription', 'October 3', PRIORITY.MEDIUM, 'Family');
+    taskList.appendChild(li);
   }
 
   renderMainApp() {

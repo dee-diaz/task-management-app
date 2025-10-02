@@ -48,3 +48,9 @@ export const LIST_TYPE = {
   DEFAULT: 'Default',
   CUSTOM: 'Custom',
 };
+
+export const PRIORITY = {
+  LOW: 'Low',
+  MEDIUM: 'Medium',
+  HIGH: 'High',
+}
