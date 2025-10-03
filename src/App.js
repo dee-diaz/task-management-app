@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
-    this.activeListId = DEFAULT_LISTS.ALL_TASKS.id;
+    this.activeListId = DEFAULT_LISTS.TODAY.id;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.firstStart = this.checkFirstStart();
@@ -61,10 +61,6 @@ class App {
       const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority, customList);
       taskList.appendChild(li);
     });
-
-    // Mock
-    // const li = this.taskRenderer.renderTask('836728921', 'Cancel Netlfix subscription', 'October 3', PRIORITY.MEDIUM, 'Family');
-    // taskList.appendChild(li);
   }
 
   renderMainApp() {
@@ -88,7 +84,11 @@ class App {
   bindEvents() {
     document.addEventListener('click', (e) => {
       if (e.target.matches('#btn-add')) {
-        console.log('yes you clicked, so what?');
+        this.modal.showTaskModal();
+      }
+
+      if (e.target.matches('#btn-close-modal')) {
+        this.modal.closeTaskModal();
       }
     });
   }

@@ -13,6 +13,7 @@
   --clr-bg-primary: var(--clr-dark-blue-400);
   --clr-bg-secondary: var(--clr-dark-blue-300);
   --clr-bg-overlay: var(--clr-dark-blue-700);
+  --clr-bg-overlay-2: hsla(0, 0%, 0%, 0.5);
   --clr-bg-sidebar: hsla(218, 48%, 10%, 1);
   --clr-bg-btn-primary: var(--clr-accent-brand);
 
@@ -352,6 +353,34 @@ dialog {
   }
 }
 
+dialog#modal-task {
+  width: 600px;
+  height: 250px;
+  border-radius: 0.75rem;
+  position: relative;
+  padding: 1rem;
+  position: absolute;
+  background-color: var(--clr-bg-primary);
+  &::backdrop {
+    background-color: var(--clr-bg-overlay-2);
+  }
+
+  #btn-close-modal {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+
+  .row-1 {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+}
+
 .btn {
   padding-block: 0.75rem;
   color: var(--clr-text-primary);
@@ -577,6 +606,10 @@ dialog {
   }
 }
 
+
+
+/* Desktops */
+
 @media (min-width: 992px) {
   body {
     padding: 0.75rem;
@@ -619,6 +652,10 @@ dialog {
 
   dialog {
     padding: 2rem;
+  }
+
+  dialog#modal-add-task {
+    padding: 1.25rem;
   }
 
   #modal-start {

@@ -13,6 +13,13 @@ class TaskManager {
     return tasks !== null ? tasks : [];
   }
 
+  getTask(taskId) {
+    const tasks = this.storage.get('tasks');
+    const task = tasks.filter(task => task._id === taskId);
+    console.dir(task);
+    return task;
+  }
+
   getTasks() {
     console.table(this.tasks);
     return this.tasks;
