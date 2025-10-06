@@ -9,6 +9,7 @@ import { DEFAULT_LISTS, customLists, PRIORITY } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
 import { format } from 'date-fns';
 import initDatePickers from './presentation/components/Calendar';
+import PriorityPicker from './presentation/components/PrioritySelector';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -28,6 +29,7 @@ class App {
     this.init();
     this.form = document.querySelector('#form-task');
     this.formHandler = new FormHandler(this.form);
+    this.priorityPicker = new PriorityPicker();
     this.bindEvents();
   }
 
@@ -112,6 +114,7 @@ class App {
         this.formHandler.handleDateSelect();
       }
       if (e.target.matches('#priority')) {
+        this.priorityPicker.showPicker();
         this.formHandler.handlePrioritySelect();
       }
       if (e.target.matches('#task-list')) {
