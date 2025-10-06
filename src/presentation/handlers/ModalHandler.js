@@ -4,20 +4,8 @@ class ModalHandler {
     this.modalRenderer = modalRenderer;
     this.onComplete = onComplete;
     this.onboardingStep = 1;
-    this.bindEvents();
   }
 
-  bindEvents() {
-    // Event delegation for all modals
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('#modal-start .btn-continue')) {
-        this.handleStartModalContinue(e);
-      }
-      if (e.target.matches('#modal-start .btn-skip')) {
-        this.handleNameSkip();
-      }
-    });
-  }
 
   handleStartModalContinue(e) {
     if (this.onboardingStep === 1) {

@@ -58,7 +58,13 @@ class App {
     const tasksFiltered = FilterService.filterByList(tasks, listId);
     tasksFiltered.forEach((task) => {
       const customList = FilterService.defineCustomList(task);
-      const li = this.taskRenderer.renderTask(task._id, task.title, task.deadlineDate, task.priority, customList);
+      const li = this.taskRenderer.renderTask(
+        task._id,
+        task.title,
+        task.deadlineDate,
+        task.priority,
+        customList,
+      );
       taskList.appendChild(li);
     });
   }
@@ -89,6 +95,13 @@ class App {
 
       if (e.target.matches('#btn-close-modal')) {
         this.modal.closeTaskModal();
+      }
+
+      if (e.target.matches('#modal-start .btn-continue')) {
+        this.modalHandler.handleStartModalContinue(e);
+      }
+      if (e.target.matches('#modal-start .btn-skip')) {
+        this.modalHandler.handleNameSkip();
       }
     });
   }
