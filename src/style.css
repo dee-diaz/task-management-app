@@ -354,8 +354,8 @@ dialog {
 }
 
 dialog#modal-task {
-  width: 600px;
-  height: 250px;
+  width: 100%;
+  min-height: 16.5rem;
   border-radius: 0.75rem;
   position: relative;
   padding: 1rem;
@@ -374,10 +374,36 @@ dialog#modal-task {
     cursor: pointer;
   }
 
-  .row-1 {
+  .row-3,
+  .row-4 {
     display: flex;
-    justify-content: center;
-    align-items: start;
+    justify-content: space-between;
+    align-items: center;
+
+    > div {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      gap: 0.5rem;
+      cursor: pointer;
+
+      > * {
+        cursor: pointer;
+      }
+
+      > input {
+        max-width: 5rem;
+      }
+    }
+  }
+
+  .row-3 {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--clr-divider);
+  }
+
+  .row-4 {
+    margin-top: 1rem;
   }
 }
 
@@ -392,6 +418,10 @@ dialog#modal-task {
 
 .btn-primary {
   background-color: var(--clr-bg-btn-primary);
+
+  &[type='submit'] {
+    padding: 0.75rem 2.5rem;
+  }
 }
 
 .btn-secondary {
@@ -564,7 +594,8 @@ dialog#modal-task {
     }
   }
 
-  .row-top, .row-bottom {
+  .row-top,
+  .row-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -606,10 +637,41 @@ dialog#modal-task {
   }
 }
 
+.form-task {
+  input,
+  textarea {
+    width: 90%;
+    background: transparent;
+    border: none;
+    color: var(--clr-text-primary);
+    caret-color: var(--clr-text-light-blue);
 
+    &:focus-visible {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--clr-text-tertiary);
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  #task-title,
+  #task-title::placeholder {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  #task-schedule,
+  #task-schedule::placeholder {
+    color: var(--clr-text-primary);
+  }
+}
 
 /* Desktops */
-
 @media (min-width: 992px) {
   body {
     padding: 0.75rem;
@@ -684,6 +746,11 @@ dialog#modal-task {
     input {
       margin-bottom: 2rem;
     }
+  }
+
+  dialog#modal-task {
+    width: 36.5rem;
+    min-height: 14.25rem;
   }
 
   .main {

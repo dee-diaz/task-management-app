@@ -1,4 +1,8 @@
 import logoSvg from '../../assets/img/logo-2.svg';
+import iconSchedule from '../../assets/img/icon-schedule.svg';
+import iconDeadline from '../../assets/img/icon-deadline.svg';
+import iconPriority from '../../assets/img/icon-priority.svg';
+import iconList from '../../assets/img/icon-list.svg';
 
 class ModalRenderer {
   constructor(container) {
@@ -95,7 +99,6 @@ class ModalRenderer {
     modal.remove();
   }
 
-
   createTaskModal() {
     const body = document.querySelector('body');
     const modal = document.createElement('dialog');
@@ -114,17 +117,112 @@ class ModalRenderer {
     path.setAttribute('fill', '#A5A5A5');
     svg.appendChild(path);
 
-    const form = document.createElement('form');
-    form.id = 'form-task';
-    const row1 = document.createElement('div');
-    row1.className = 'row-1';
+    // const form = document.createElement('form');
+    // form.className = 'form-task';
+    // const inputTitle = document.createElement('textarea');
+    // inputTitle.id = 'task-title';
+    // inputTitle.setAttribute('type', 'text');
+    // inputTitle.setAttribute('placeholder', 'New task');
 
-    form.appendChild(row1);
+    // form.appendChild(inputTitle);
+
+    // const row1 = document.createElement('div');
+    // row1.className = 'row-1';
+
+    // form.appendChild(row1);
 
     modal.appendChild(svg);
-    modal.appendChild(form);
+    // modal.appendChild(form);
 
     body.appendChild(modal);
+    this._renderTaskForm();
+  }
+
+  _renderTaskForm() {
+    const modal = document.querySelector('#modal-task');
+    const form = document.createElement('form');
+    form.className = 'form-task';
+
+    const row1 = document.createElement('div');
+    row1.className = 'row-1';
+    const row2 = document.createElement('div');
+    row2.className = 'row-2';
+    const row3 = document.createElement('div');
+    row3.className = 'row-3';
+    const row4 = document.createElement('div');
+    row4.className = 'row-4';
+
+    const taskTitle = document.createElement('textarea');
+    taskTitle.id = 'task-title';
+    taskTitle.setAttribute('type', 'text');
+    taskTitle.setAttribute('placeholder', 'New task');
+    taskTitle.setAttribute('name', 'task-title');
+    taskTitle.setAttribute('minlength', '1');
+    taskTitle.setAttribute('maxlength', '100');
+    taskTitle.setAttribute('required', '');
+    taskTitle.setAttribute('form', 'form-task');
+
+    const taskDescription = document.createElement('textarea');
+    taskDescription.id = 'task-description';
+    taskDescription.setAttribute('type', 'text');
+    taskDescription.setAttribute('placeholder', 'Description');
+    taskDescription.setAttribute('name', 'task-description');
+    taskDescription.setAttribute('maxlength', '250');
+    taskDescription.setAttribute('form', 'form-task');
+
+    // Contents of the 3rd row
+    const contents = ['task-schedule', 'task-deadline', 'priority'];
+    contents.forEach((item) => {
+      const container = document.createElement('div');
+      container.className = item;
+      const icon = document.createElement('img');
+      const input = document.createElement('input');
+      input.id = item;
+      input.setAttribute('name', item);
+      input.setAttribute('readonly', '');
+      if (item === 'task-schedule') {
+        icon.src = iconSchedule;
+        input.setAttribute('placeholder', 'Today');
+      } else if (item === 'task-deadline') {
+        icon.src = iconDeadline;
+        input.setAttribute('placeholder', 'Deadline');
+      } else {
+        icon.src = iconPriority;
+        input.setAttribute('placeholder', 'No priority');
+      }
+      container.appendChild(icon);
+      container.appendChild(input);
+      row3.appendChild(container);
+    });
+
+    const listContainer = document.createElement('div');
+    listContainer.className = 'task-list';
+    const listIcon = document.createElement('img');
+    listIcon.src = iconList;
+    const listInput = document.createElement('input');
+    listInput.id = 'task-list';
+    listInput.setAttribute('name', 'task-list');
+    listInput.setAttribute('readonly', '');
+    listInput.setAttribute('placeholder', 'Select list');
+    listContainer.appendChild(listIcon);
+    listContainer.appendChild(listInput);
+
+    const btnAdd = document.createElement('button');
+    btnAdd.setAttribute('type', 'submit');
+    btnAdd.setAttribute('form', 'form-task');
+    btnAdd.textContent = 'Add';
+    btnAdd.className = 'btn btn-primary'
+
+    row1.appendChild(taskTitle);
+    row2.appendChild(taskDescription);
+    row4.appendChild(listContainer);
+    row4.appendChild(btnAdd);
+
+    form.appendChild(row1);
+    form.appendChild(row2);
+    form.appendChild(row3);
+    form.appendChild(row4);
+    modal.appendChild(form);
   }
 
   showTaskModal() {
