@@ -106,6 +106,15 @@ class App {
       if (e.target.matches('#modal-start .btn-skip')) {
         this.modalHandler.handleNameSkip();
       }
+      if (e.target.matches('#task-schedule') || e.target.matches('#task-deadline')) {
+        this.formHandler.handleDateSelect();
+      }
+      if (e.target.matches('#priority')) {
+        this.formHandler.handlePrioritySelect();
+      }
+      if (e.target.matches('#task-list')) {
+        this.formHandler.handleListSelect();
+      }
     });
 
     this.form.addEventListener('submit', this.formHandler.handleSubmit)

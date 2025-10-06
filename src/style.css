@@ -393,7 +393,7 @@ dialog#modal-task {
       }
 
       > input {
-        max-width: 5rem;
+        max-width: 5.25rem;
       }
     }
   }
