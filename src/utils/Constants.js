@@ -50,6 +50,7 @@ export const LIST_TYPE = {
 };
 
 export const PRIORITY = {
+  NONE: 'None',
   LOW: 'Low',
   MEDIUM: 'Medium',
   HIGH: 'High',

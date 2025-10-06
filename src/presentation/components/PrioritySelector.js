@@ -12,7 +12,6 @@ class PriorityPicker {
     const title = document.createElement('h5');
     title.textContent = 'Priority';
     const list = document.createElement('ul');
-    const values = ['None', 'Low', 'Medium', 'High'];
 
     for (let i = 0; i < 4; i++) {
       const li = document.createElement('li');
@@ -20,7 +19,7 @@ class PriorityPicker {
       const exclamation = document.createElement('span');
       exclamation.textContent = '!'.repeat(i);
       button.appendChild(exclamation);
-      button.textContent = values[i];
+      button.textContent = Object.values(PRIORITY)[i];
       li.appendChild(button);
       list.appendChild(li);
     }
