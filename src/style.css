@@ -379,6 +379,7 @@ dialog#modal-task {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 1rem;
 
     > div {
       display: flex;
@@ -400,10 +401,6 @@ dialog#modal-task {
   .row-3 {
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--clr-divider);
-  }
-
-  .row-4 {
-    margin-top: 1rem;
   }
 }
 
@@ -657,6 +654,12 @@ dialog#modal-task {
 
   textarea {
     resize: none;
+    field-sizing: content;
+    overflow-y: hidden;
+  }
+
+  #task-title {
+    margin-bottom: 1rem;
   }
 
   #task-title,
