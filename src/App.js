@@ -8,6 +8,7 @@ import FormHandler from './presentation/handlers/FormHandler';
 import { DEFAULT_LISTS, customLists, PRIORITY } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
 import { format } from 'date-fns';
+import initDatePickers from './presentation/components/Calendar';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -87,6 +88,7 @@ class App {
     } else {
       this.loadUserName();
       this.renderMainApp();
+      initDatePickers();
     }
   }
 
