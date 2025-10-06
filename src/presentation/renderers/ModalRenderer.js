@@ -116,32 +116,16 @@ class ModalRenderer {
     );
     path.setAttribute('fill', '#A5A5A5');
     svg.appendChild(path);
-
-    // const form = document.createElement('form');
-    // form.className = 'form-task';
-    // const inputTitle = document.createElement('textarea');
-    // inputTitle.id = 'task-title';
-    // inputTitle.setAttribute('type', 'text');
-    // inputTitle.setAttribute('placeholder', 'New task');
-
-    // form.appendChild(inputTitle);
-
-    // const row1 = document.createElement('div');
-    // row1.className = 'row-1';
-
-    // form.appendChild(row1);
-
     modal.appendChild(svg);
-    // modal.appendChild(form);
-
     body.appendChild(modal);
-    this._renderTaskForm();
+    this.renderTaskForm();
   }
 
-  _renderTaskForm() {
+  renderTaskForm() {
     const modal = document.querySelector('#modal-task');
     const form = document.createElement('form');
     form.className = 'form-task';
+    form.id = 'form-task';
 
     const row1 = document.createElement('div');
     row1.className = 'row-1';

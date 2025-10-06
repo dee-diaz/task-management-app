@@ -4,6 +4,7 @@ import LocalStorageAdapter from './infrastructure/LocalStorageAdapter';
 import SidebarRenderer from './presentation/renderers/SidebarRenderer';
 import ModalRenderer from './presentation/renderers/ModalRenderer';
 import ModalHandler from './presentation/handlers/ModalHandler';
+import FormHandler from './presentation/handlers/FormHandler';
 import { DEFAULT_LISTS, customLists, PRIORITY } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
 import { format } from 'date-fns';
@@ -24,6 +25,8 @@ class App {
     });
     this.taskRenderer = new TaskRenderer(this.container);
     this.init();
+    this.form = document.querySelector('#form-task');
+    this.formHandler = new FormHandler(this.form);
     this.bindEvents();
   }
 
@@ -104,6 +107,8 @@ class App {
         this.modalHandler.handleNameSkip();
       }
     });
+
+    this.form.addEventListener('submit', this.formHandler.handleSubmit)
   }
 }
 
