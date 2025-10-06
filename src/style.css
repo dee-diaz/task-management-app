@@ -676,6 +676,101 @@ dialog#modal-task {
   }
 }
 
+/* Calendar */
+.air-datepicker.custom-calendar-theme {
+  width: fit-content;
+  background: var(--clr-dark-blue-500);
+  color: var(--clr-text-primary);
+  font-size: 1rem;
+  font-family: 'Roobert PRO', sans-serif;
+  border-radius: 0.5rem;
+  border: 1px solid var(--clr-divider);
+
+  .air-datepicker--pointer {
+    display: none;
+  }
+
+  .air-datepicker-nav {
+    border-bottom: none;
+  }
+
+  .air-datepicker-nav {
+    padding-top: 1rem;
+  }
+
+  .air-datepicker-nav--title {
+    > * {
+      color: var(--clr-text-primary);
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: var(--clr-bg-primary);
+    }
+  }
+
+  .air-datepicker-nav--action {
+    svg path {
+      stroke: var(--clr-text-light-blue);
+    }
+
+    &:hover {
+      background: var(--clr-bg-primary);
+    }
+  }
+
+  .air-datepicker--content {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .air-datepicker-body--day-names {
+    margin: 0;
+    padding: 0;
+  }
+
+  .air-datepicker-body--day-name {
+    color: var(--clr-text-secondary);
+    font-size: 0.875rem;
+    text-transform: none;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .air-datepicker-body--cells.-days- {
+    grid-template-columns: repeat(7, 2.5rem);
+    grid-auto-rows: 2.5rem;
+  }
+
+  .air-datepicker-cell {
+    font-size: 0.875rem;
+
+    &:hover {
+      background: var(--clr-bg-secondary);
+    }
+  }
+
+  .air-datepicker-cell.-day-.-other-month-,
+  .air-datepicker-cell.-day-.-disabled- {
+    color: var(--clr-text-tertiary);
+  }
+
+  .air-datepicker-cell.-selected- {
+    background-color: var(--clr-text-light-blue);
+    color: var(--clr-bg-primary);
+    font-weight: 600;
+  }
+
+  .air-datepicker-cell.-current- {
+    color: var(--clr-text-light-blue);
+
+    &.-selected- {
+      color: var(--clr-bg-primary);
+      font-weight: 600;
+    }
+  }
+}
+/* Calendar end */
+
 /* Desktops */
 @media (min-width: 992px) {
   body {

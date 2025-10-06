@@ -7,6 +7,7 @@ function initDatePickers() {
   const options = {
     locale: localeEn,
     container: document.querySelector('#modal-task'),
+    classes: 'custom-calendar-theme',
     minDate: new Date(),
     dateFormat: 'MM/dd/yyyy',
     onSelect({ date, datepicker }) {
