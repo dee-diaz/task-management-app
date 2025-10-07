@@ -9,7 +9,7 @@ import { DEFAULT_LISTS, customLists, PRIORITY } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
 import { format } from 'date-fns';
 import initDatePickers from './presentation/components/Calendar';
-import PriorityPicker from './presentation/components/PrioritySelector';
+import PriorityPicker from './presentation/components/PriorityPicker';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -75,6 +75,8 @@ class App {
     });
   }
 
+  
+
   renderMainApp() {
     this.sidebar.init(this.userName);
     this.sidebar.setActiveList(this.activeListId);
@@ -114,12 +116,13 @@ class App {
         this.formHandler.handleDateSelect();
       }
       if (e.target.matches('#priority')) {
-        this.priorityPicker.showPicker();
+        this.priorityPicker.show();
         this.formHandler.handlePrioritySelect();
       }
       if (e.target.matches('#task-list')) {
         this.formHandler.handleListSelect();
       }
+
     });
 
     this.form.addEventListener('submit', this.formHandler.handleSubmit)

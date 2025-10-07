@@ -143,7 +143,7 @@ class ModalRenderer {
     taskTitle.setAttribute('name', 'task-title');
     taskTitle.setAttribute('minlength', '1');
     taskTitle.setAttribute('maxlength', '100');
-    taskTitle.setAttribute('required', '');
+    // taskTitle.setAttribute('required', '');
     taskTitle.setAttribute('form', 'form-task');
 
     const taskDescription = document.createElement('textarea');
@@ -166,7 +166,7 @@ class ModalRenderer {
       input.setAttribute('readonly', '');
       if (item === 'task-schedule') {
         icon.src = iconSchedule;
-        input.setAttribute('placeholder', 'Today');
+        input.setAttribute('placeholder', 'Schedule');
       } else if (item === 'task-deadline') {
         icon.src = iconDeadline;
         input.setAttribute('placeholder', 'Deadline');

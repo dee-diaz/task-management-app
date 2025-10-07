@@ -679,11 +679,6 @@ dialog#modal-task {
     font-size: 1.25rem;
     font-weight: 600;
   }
-
-  #task-schedule,
-  #task-schedule::placeholder {
-    color: var(--clr-text-primary);
-  }
 }
 
 /* Calendar */
@@ -783,6 +778,7 @@ dialog#modal-task {
 
 /* Priority Picker */
 .priority-picker {
+  opacity: 0;
   position: absolute;
   right: 0;
   top: 70%;
@@ -790,6 +786,12 @@ dialog#modal-task {
   padding: 0.75rem 1rem;
   border: 1px solid var(--clr-divider);
   border-radius: 0.5rem;
+  transition: opacity 0.2s ease-in-out;
+  isolation: isolate;
+
+  &.visible {
+    opacity: 1;
+  }
 
   h5 {
     font-size: 1rem;
@@ -803,12 +805,42 @@ dialog#modal-task {
     gap: 0.25rem;
   }
 
+  li {
+    &.active {
+      background-color: var(--clr-bg-secondary);
+      border-radius: 0.25rem;
+      .text {
+        color: var(--clr-text-light-blue);
+        font-weight: 500;
+      }
+    }
+  }
+
   button {
+    width: 100%;
     color: var(--clr-text-secondary);
     font-size: 1rem;
     padding: 0.5rem;
     display: flex;
     gap: 0.375rem;
+
+    .exclamation {
+      font-size: 0.875rem;
+      width: 1rem;
+      height: 1rem;
+      text-align: center;
+      display: flex;
+      transform: translateY(2px);
+      &.low {
+        color: var(--clr-text-light-blue);
+      }
+      &.medium {
+        color: var(--clr-yellow-400);
+      }
+      &.high {
+        color: var(--clr-red-400);
+      }
+    }
 
     span {
       color: var(--clr-text-secondary);
@@ -900,5 +932,15 @@ dialog#modal-task {
 
   .main {
     max-width: 34rem;
+  }
+
+  .priority-picker {
+    li {
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: var(--clr-bg-secondary);
+        border-radius: 0.25rem;
+      }
+    }
   }
 }
