@@ -9,7 +9,7 @@ function initDatePickers() {
     container: document.querySelector('#modal-task'),
     classes: 'custom-calendar-theme',
     minDate: new Date(),
-    dateFormat: 'MM/dd/yyyy',
+    dateFormat: 'dd/MM/yyyy',
     onSelect({ date, datepicker }) {
       if (!date) return;
 
@@ -29,7 +29,7 @@ function initDatePickers() {
       } else if (sel.getTime() === tm.getTime()) {
         datepicker.$el.value = 'Tomorrow';
       } else {
-        datepicker.$el.value = datepicker.formatDate(sel, 'MM/dd/yyyy');
+        datepicker.$el.value = datepicker.formatDate(sel, 'dd/MM/yyyy');
       }
     },
   };
