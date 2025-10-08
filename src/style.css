@@ -778,6 +778,7 @@ dialog#modal-task {
 
 /* Priority Picker */
 .priority-picker {
+  display: none;
   opacity: 0;
   position: absolute;
   right: 0;
@@ -787,9 +788,10 @@ dialog#modal-task {
   border: 1px solid var(--clr-divider);
   border-radius: 0.5rem;
   transition: opacity 0.2s ease-in-out;
-  isolation: isolate;
+  z-index: 10;
 
   &.visible {
+    display: block;
     opacity: 1;
   }
 
@@ -940,6 +942,10 @@ dialog#modal-task {
       &:hover {
         background-color: var(--clr-bg-secondary);
         border-radius: 0.25rem;
+
+        .text {
+          color: var(--clr-text-primary);
+        }
       }
     }
   }

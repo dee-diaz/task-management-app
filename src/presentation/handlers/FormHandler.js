@@ -8,8 +8,8 @@ class FormHandler {
     console.log('Choose a date');
   }
 
-  handlePrioritySelect() {
-    console.log('Choose a priority');
+  handlePrioritySelect(e) {
+    console.log(e.target);
   }
 
   handleListSelect() {

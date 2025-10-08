@@ -75,8 +75,6 @@ class App {
     });
   }
 
-  
-
   renderMainApp() {
     this.sidebar.init(this.userName);
     this.sidebar.setActiveList(this.activeListId);
@@ -112,20 +110,28 @@ class App {
       if (e.target.matches('#modal-start .btn-skip')) {
         this.modalHandler.handleNameSkip();
       }
-      if (e.target.matches('#task-schedule') || e.target.matches('#task-deadline')) {
+      if (
+        e.target.matches('#task-schedule') ||
+        e.target.matches('#task-deadline')
+      ) {
         this.formHandler.handleDateSelect();
       }
       if (e.target.matches('#priority')) {
         this.priorityPicker.show();
-        this.formHandler.handlePrioritySelect();
       }
       if (e.target.matches('#task-list')) {
         this.formHandler.handleListSelect();
       }
-
     });
 
-    this.form.addEventListener('submit', this.formHandler.handleSubmit)
+    this.form.addEventListener('submit', this.handleSubmit);
+    const priorityPicker = document.querySelector('.priority-picker');
+    priorityPicker.addEventListener('click', this.formHandler.handlePrioritySelect);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log('Submitted');
   }
 }
 

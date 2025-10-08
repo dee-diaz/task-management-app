@@ -17,6 +17,7 @@ class PriorityPicker {
       const li = document.createElement('li');
       li.id = Object.values(PRIORITY)[i].toLowerCase() + '-priority';
       const button = document.createElement('button');
+      button.setAttribute('type', 'button');
       const exclamation = document.createElement('span');
       exclamation.className = 'exclamation';
       const buttonText = document.createElement('span');
