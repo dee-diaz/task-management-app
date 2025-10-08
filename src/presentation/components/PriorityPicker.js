@@ -16,13 +16,11 @@ class PriorityPicker {
     for (let i = 0; i < Object.values(PRIORITY).length; i++) {
       const li = document.createElement('li');
       li.id = Object.values(PRIORITY)[i].toLowerCase() + '-priority';
-      const button = document.createElement('button');
-      button.setAttribute('type', 'button');
       const exclamation = document.createElement('span');
       exclamation.className = 'exclamation';
-      const buttonText = document.createElement('span');
-      buttonText.className = 'text';
-      buttonText.textContent = Object.values(PRIORITY)[i];
+      const text = document.createElement('span');
+      text.className = 'text';
+      text.textContent = Object.values(PRIORITY)[i];
       exclamation.textContent = '!'.repeat(i + 1);
 
       switch (Object.values(PRIORITY)[i]) {
@@ -37,9 +35,8 @@ class PriorityPicker {
           break;
       }
 
-      button.appendChild(exclamation);
-      button.appendChild(buttonText);
-      li.appendChild(button);
+      li.appendChild(exclamation);
+      li.appendChild(text);
       list.appendChild(li);
     }
 
@@ -53,11 +50,6 @@ class PriorityPicker {
   show() {
     const picker = document.querySelector('.priority-picker');
     if (!picker.classList.contains('visible')) picker.classList.add('visible');
-  }
-
-  close() {
-    const picker = document.querySelector('.priority-picker');
-    picker.classList.remove('visible');
   }
 }
 

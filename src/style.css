@@ -400,7 +400,7 @@ dialog#modal-task {
     }
 
     .priority-picker {
-      display: block;
+      display: none;
       cursor: initial;
 
       > * {
@@ -791,7 +791,7 @@ dialog#modal-task {
   z-index: 10;
 
   &.visible {
-    display: block;
+    display: block !important;
     opacity: 1;
   }
 
@@ -808,23 +808,15 @@ dialog#modal-task {
   }
 
   li {
-    &.active {
-      background-color: var(--clr-bg-secondary);
-      border-radius: 0.25rem;
-      .text {
-        color: var(--clr-text-light-blue);
-        font-weight: 500;
-      }
-    }
-  }
-
-  button {
-    width: 100%;
-    color: var(--clr-text-secondary);
-    font-size: 1rem;
     padding: 0.5rem;
     display: flex;
     gap: 0.375rem;
+    cursor: pointer;
+
+    .text {
+      color: var(--clr-text-secondary);
+      font-size: 1rem;
+    }
 
     .exclamation {
       font-size: 0.875rem;
@@ -842,10 +834,15 @@ dialog#modal-task {
       &.high {
         color: var(--clr-red-400);
       }
-    }
 
-    span {
-      color: var(--clr-text-secondary);
+      &.active {
+        background-color: var(--clr-bg-secondary);
+        border-radius: 0.25rem;
+        .text {
+          color: var(--clr-text-light-blue);
+          font-weight: 500;
+        }
+      }
     }
   }
 }

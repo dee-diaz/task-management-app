@@ -143,7 +143,6 @@ class ModalRenderer {
     taskTitle.setAttribute('name', 'task-title');
     taskTitle.setAttribute('minlength', '1');
     taskTitle.setAttribute('maxlength', '100');
-    // taskTitle.setAttribute('required', '');
     taskTitle.setAttribute('form', 'form-task');
 
     const taskDescription = document.createElement('textarea');
