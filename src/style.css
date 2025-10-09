@@ -846,6 +846,15 @@ dialog#modal-task {
   }
 }
 
+.list-picker {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 70%;
+
+}
+
 /* Desktops */
 @media (min-width: 992px) {
   body {

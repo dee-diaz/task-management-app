@@ -183,8 +183,8 @@ class ModalRenderer {
     const listIcon = document.createElement('img');
     listIcon.src = iconList;
     const listInput = document.createElement('input');
-    listInput.id = 'task-list';
-    listInput.setAttribute('name', 'task-list');
+    listInput.id = 'list';
+    listInput.setAttribute('name', 'list');
     listInput.setAttribute('readonly', '');
     listInput.setAttribute('placeholder', 'Select list');
     listContainer.appendChild(listIcon);

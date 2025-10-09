@@ -9,7 +9,6 @@ class FormHandler {
   }
 
   handlePrioritySelect(e) {
-    console.log('Choose priority');
     const picker = document.querySelector('.priority-picker');
     const priorityInput = document.querySelector('#priority');
 
@@ -23,8 +22,9 @@ class FormHandler {
     picker.classList.remove('visible');
   }
 
-  handleListSelect() {
+  handleListSelect(e) {
     console.log('Choose a list');
+    const picker = document.querySelector('.list-picker');
   }
 
   handleSubmit(e) {

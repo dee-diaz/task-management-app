@@ -15,7 +15,7 @@ class TaskManager {
 
   getTask(taskId) {
     const tasks = this.storage.get('tasks');
-    const task = tasks.filter(task => task._id === taskId);
+    const task = tasks.filter((task) => task._id === taskId);
     console.dir(task);
     return task;
   }
@@ -37,7 +37,7 @@ class TaskManager {
       ? (newTask.deadlineDate = deadlineDate)
       : (newTask.deadlineDate = '');
     priority ? (newTask.priority = priority) : (newTask.priority = '');
-    
+
     // List logic
     if (scheduleDate === 'Today' || !scheduleDate) newTask._lists.push('Today');
     if (list) newTask._lists.push(list);

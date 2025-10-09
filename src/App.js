@@ -5,11 +5,10 @@ import SidebarRenderer from './presentation/renderers/SidebarRenderer';
 import ModalRenderer from './presentation/renderers/ModalRenderer';
 import ModalHandler from './presentation/handlers/ModalHandler';
 import FormHandler from './presentation/handlers/FormHandler';
-import { DEFAULT_LISTS, customLists, PRIORITY } from './utils/Constants';
+import { DEFAULT_LISTS, customLists } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
-import { format } from 'date-fns';
 import initDatePickers from './presentation/components/Calendar';
-import PriorityPicker from './presentation/components/PriorityPicker';
+import initDropdowns from './presentation/components/dropdowns';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -29,7 +28,6 @@ class App {
     this.init();
     this.form = document.querySelector('#form-task');
     this.formHandler = new FormHandler(this.form);
-    this.priorityPicker = new PriorityPicker();
     this.bindEvents();
   }
 
@@ -91,6 +89,7 @@ class App {
       this.loadUserName();
       this.renderMainApp();
       initDatePickers();
+      initDropdowns();
     }
   }
 
@@ -117,16 +116,21 @@ class App {
         this.formHandler.handleDateSelect();
       }
       if (e.target.matches('#priority')) {
-        this.priorityPicker.show();
+        const picker = document.querySelector('.priority-picker');
+        if (!picker.classList.contains('visible'))
+          picker.classList.add('visible');
       }
-      if (e.target.matches('#task-list')) {
+      if (e.target.matches('#list')) {
         this.formHandler.handleListSelect();
       }
     });
 
     this.form.addEventListener('submit', this.handleSubmit);
     const priorityPicker = document.querySelector('.priority-picker');
-    priorityPicker.addEventListener('click', this.formHandler.handlePrioritySelect);
+    priorityPicker.addEventListener(
+      'click',
+      this.formHandler.handlePrioritySelect,
+    );
   }
 
   handleSubmit(e) {
