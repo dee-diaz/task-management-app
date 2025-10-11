@@ -41,7 +41,7 @@ export const customLists = {
   work: {
     id: 'Work',
     color: LIST_COLORS.PINK,
-  },
+  }
 };
 
 export const LIST_TYPE = {

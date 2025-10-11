@@ -94,6 +94,10 @@ class App {
   }
 
   bindEvents() {
+    const priorityPicker = document.querySelector('.priority-picker');
+    const listPicker = document.querySelector('.list-picker');
+
+
     document.addEventListener('click', (e) => {
       if (e.target.matches('#btn-add')) {
         this.modal.showTaskModal();
@@ -116,26 +120,30 @@ class App {
         this.formHandler.handleDateSelect();
       }
       if (e.target.matches('#priority')) {
-        const picker = document.querySelector('.priority-picker');
-        if (!picker.classList.contains('visible'))
-          picker.classList.add('visible');
+        priorityPicker.classList.toggle('visible');
       }
       if (e.target.matches('#list')) {
-        const picker = document.querySelector('.list-picker');
-        if (!picker.classList.contains('visible'))
-          picker.classList.add('visible');
+        listPicker.classList.toggle('visible');
+      }
+
+      if (e.target.id !== 'priority') {
+        priorityPicker.classList.remove('visible');
+      }
+
+      if (e.target.id !== 'list') {
+        listPicker.classList.remove('visible');
       }
     });
 
-    this.form.addEventListener('submit', this.handleSubmit);
-    const priorityPicker = document.querySelector('.priority-picker');
-    const listPicker = document.querySelector('.list-picker');
+    
     priorityPicker.addEventListener(
       'click',
       this.formHandler.handlePrioritySelect,
     );
 
     listPicker.addEventListener('click', this.formHandler.handleListSelect);
+
+    this.form.addEventListener('submit', this.handleSubmit);
   }
 
   handleSubmit(e) {

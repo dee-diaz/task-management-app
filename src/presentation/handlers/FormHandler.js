@@ -19,7 +19,6 @@ class FormHandler {
     } else {
       priorityInput.value = e.target.children[1].textContent;
     }
-    picker.classList.remove('visible');
   }
 
   handleListSelect(e) {
@@ -27,8 +26,6 @@ class FormHandler {
     const listInput = document.querySelector('#list');
 
     listInput.value = e.target.textContent;
-    picker.classList.remove('visible');
-
   }
 
   handleSubmit(e) {
