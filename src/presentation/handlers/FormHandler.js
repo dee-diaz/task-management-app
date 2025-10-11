@@ -10,6 +10,7 @@ class FormHandler {
 
   handlePrioritySelect(e) {
     const priorityInput = document.querySelector('#priority');
+    if (e.target.matches('h5')) return;
     if (e.target.matches('.text')) {
       priorityInput.value = e.target.textContent;
     } else if (e.target.matches('.exclamation')) {
@@ -20,6 +21,7 @@ class FormHandler {
   }
 
   handleListSelect(e) {
+    if (e.target.matches('h5')) return;
     const listInput = document.querySelector('#list');
     listInput.value = e.target.textContent;
   }
