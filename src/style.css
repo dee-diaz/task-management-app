@@ -776,13 +776,12 @@ dialog#modal-task {
 }
 /* Calendar end */
 
-/* Priority Picker */
-.priority-picker {
+/* Pickers start */
+.priority-picker,
+.list-picker {
   display: none;
   opacity: 0;
   position: absolute;
-  right: 0;
-  top: 70%;
   background-color: var(--clr-dark-blue-500);
   padding: 0.75rem 1rem;
   border: 1px solid var(--clr-divider);
@@ -818,6 +817,22 @@ dialog#modal-task {
       font-size: 0.9rem;
     }
 
+    &.active {
+      background-color: var(--clr-bg-secondary);
+      border-radius: 0.25rem;
+      .text {
+        color: var(--clr-text-light-blue);
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.priority-picker {
+  right: 0;
+  top: 70%;
+
+  li {
     .exclamation {
       font-size: 0.875rem;
       width: 1rem;
@@ -833,27 +848,21 @@ dialog#modal-task {
       &.high {
         color: var(--clr-red-400);
       }
-
-      &.active {
-        background-color: var(--clr-bg-secondary);
-        border-radius: 0.25rem;
-        .text {
-          color: var(--clr-text-light-blue);
-          font-weight: 500;
-        }
-      }
     }
   }
 }
 
 .list-picker {
-  display: none;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: 70%;
+  display: none !important;
+  left: 1rem;
+  bottom: -10.25rem;
 
+  li {
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
+/* Pickers end */
 
 /* Desktops */
 @media (min-width: 992px) {
@@ -941,7 +950,8 @@ dialog#modal-task {
     max-width: 34rem;
   }
 
-  .priority-picker {
+  .priority-picker,
+  .list-picker {
     li {
       transition: background-color 0.2s ease;
       &:hover {

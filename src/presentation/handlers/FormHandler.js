@@ -23,8 +23,12 @@ class FormHandler {
   }
 
   handleListSelect(e) {
-    console.log('Choose a list');
     const picker = document.querySelector('.list-picker');
+    const listInput = document.querySelector('#list');
+
+    listInput.value = e.target.textContent;
+    picker.classList.remove('visible');
+
   }
 
   handleSubmit(e) {

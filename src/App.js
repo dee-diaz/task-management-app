@@ -121,16 +121,21 @@ class App {
           picker.classList.add('visible');
       }
       if (e.target.matches('#list')) {
-        this.formHandler.handleListSelect();
+        const picker = document.querySelector('.list-picker');
+        if (!picker.classList.contains('visible'))
+          picker.classList.add('visible');
       }
     });
 
     this.form.addEventListener('submit', this.handleSubmit);
     const priorityPicker = document.querySelector('.priority-picker');
+    const listPicker = document.querySelector('.list-picker');
     priorityPicker.addEventListener(
       'click',
       this.formHandler.handlePrioritySelect,
     );
+
+    listPicker.addEventListener('click', this.formHandler.handleListSelect);
   }
 
   handleSubmit(e) {
