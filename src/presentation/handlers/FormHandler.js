@@ -9,9 +9,7 @@ class FormHandler {
   }
 
   handlePrioritySelect(e) {
-    const picker = document.querySelector('.priority-picker');
     const priorityInput = document.querySelector('#priority');
-
     if (e.target.matches('.text')) {
       priorityInput.value = e.target.textContent;
     } else if (e.target.matches('.exclamation')) {
@@ -22,9 +20,7 @@ class FormHandler {
   }
 
   handleListSelect(e) {
-    const picker = document.querySelector('.list-picker');
     const listInput = document.querySelector('#list');
-
     listInput.value = e.target.textContent;
   }
 
