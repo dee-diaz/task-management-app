@@ -14,7 +14,7 @@ import ValidationService from './services/ValidationService';
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
-    this.activeListId = DEFAULT_LISTS.ALL_TASKS.id;
+    this.activeListId = DEFAULT_LISTS.TODAY.id;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.firstStart = this.checkFirstStart();
@@ -164,7 +164,8 @@ class App {
 
       this.form.reset();
       this.modal.closeTaskModal();
-      this.renderTaskList(this.activeListId);
+      this.renderCurrentList(this.activeListId);
+      this.updateSidebarCounters();
     }
   }
 }

@@ -5,4 +5,4 @@ import App from './App';
 const app = new App();
 
 
-// app.taskManager.deleteTask('')
+// app.taskManager.deleteTask('02c58b54-1daf-4f05-874f-f9ae94e8f8c5')
