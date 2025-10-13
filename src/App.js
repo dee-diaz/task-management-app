@@ -92,7 +92,7 @@ class App {
         this.modal.showTaskModal();
       }
 
-      if (e.target.matches('#btn-close-modal')) {
+      if (e.target.closest('#btn-close-modal')) {
         this.modal.closeTaskModal();
       }
 
