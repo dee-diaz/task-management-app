@@ -10,6 +10,7 @@ import TaskRenderer from './presentation/renderers/TaskRenderer';
 import initDatePickers from './presentation/components/Calendar';
 import initDropdowns from './presentation/components/dropdowns';
 import ValidationService from './services/ValidationService';
+import SortingService from './services/SortingService';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -60,7 +61,8 @@ class App {
   renderCurrentList() {
     const tasks = this.taskManager.getTasks();
     const tasksFiltered = FilterService.filterByList(tasks, this.activeListId);
-    this.taskRenderer.renderTaskList(tasksFiltered);
+    const tasksSorted = SortingService.sortByPriority(tasksFiltered);
+    this.taskRenderer.renderTaskList(tasksSorted);
   }
 
   renderMainApp() {
