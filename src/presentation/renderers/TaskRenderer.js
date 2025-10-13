@@ -1,5 +1,6 @@
 import { DEFAULT_LISTS, PRIORITY } from '../../utils/Constants';
 import { format } from 'date-fns';
+import FilterService from '../../services/FilterService';
 
 class TaskRenderer {
   constructor(container) {
@@ -73,6 +74,26 @@ class TaskRenderer {
     li.appendChild(rowBottom);
 
     return li;
+  }
+
+  renderTaskList(tasks) {
+    const taskList = document.querySelector('.task-list');
+    this.cleanTaskList(taskList);
+    tasks.forEach((task) => {
+      const customList = FilterService.defineCustomList(task);
+      const li = this.renderTask(
+        task._id,
+        task.title,
+        task.deadlineDate,
+        task.priority,
+        customList,
+      );
+      taskList.appendChild(li);
+    });
+  }
+
+  cleanTaskList(listEl) {
+    listEl.innerHTML = '';
   }
 
   init() {

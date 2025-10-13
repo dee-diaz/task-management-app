@@ -57,27 +57,12 @@ class App {
     this.renderMainApp();
   }
 
-  renderTaskList(listId) {
-    const taskList = document.querySelector('.task-list');
-    this.cleanTaskList(taskList);
+  renderCurrentList() {
     const tasks = this.taskManager.getTasks();
-    const tasksFiltered = FilterService.filterByList(tasks, listId);
-    tasksFiltered.forEach((task) => {
-      const customList = FilterService.defineCustomList(task);
-      const li = this.taskRenderer.renderTask(
-        task._id,
-        task.title,
-        task.deadlineDate,
-        task.priority,
-        customList,
-      );
-      taskList.appendChild(li);
-    });
+    const tasksFiltered = FilterService.filterByList(tasks, this.activeListId);
+    this.taskRenderer.renderTaskList(tasksFiltered);
   }
 
-  cleanTaskList(listEl) {
-    listEl.innerHTML = '';
-  }
 
   renderMainApp() {
     this.sidebar.init(this.userName);
@@ -85,7 +70,7 @@ class App {
     this.updateSidebarCounters();
     this.taskRenderer.init();
     this.taskRenderer.renderListTitle(this.activeListId);
-    this.renderTaskList(this.activeListId);
+    this.renderCurrentList();
   }
 
   init() {
