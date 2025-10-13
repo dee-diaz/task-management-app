@@ -59,6 +59,7 @@ class App {
 
   renderTaskList(listId) {
     const taskList = document.querySelector('.task-list');
+    this.cleanTaskList(taskList);
     const tasks = this.taskManager.getTasks();
     const tasksFiltered = FilterService.filterByList(tasks, listId);
     tasksFiltered.forEach((task) => {
@@ -72,6 +73,10 @@ class App {
       );
       taskList.appendChild(li);
     });
+  }
+
+  cleanTaskList(listEl) {
+    listEl.innerHTML = '';
   }
 
   renderMainApp() {
@@ -162,10 +167,11 @@ class App {
         values['priority'],
         values['list'],
       );
-    }
 
-    this.form.reset();
-    this.modal.closeTaskModal();
+      this.form.reset();
+      this.modal.closeTaskModal();
+      this.renderTaskList(this.activeListId);
+    }
   }
 }
 

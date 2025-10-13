@@ -53,6 +53,10 @@ class TaskManager {
 
   deleteTask(taskId) {
     const deletedTask = this.tasks.find((task) => task._id === taskId);
+    if (!deletedTask) {
+      console.warn('Task to delete not found by ID');
+      return;
+    }
     const index = this.tasks.findIndex((task) => task._id === taskId);
     if (index !== -1) this.tasks.splice(index, 1);
     this.storage.save('tasks', this.tasks);

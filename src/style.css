@@ -667,7 +667,6 @@ dialog#modal-task {
   textarea {
     resize: none;
     field-sizing: content;
-    overflow-y: hidden;
   }
 
   #task-title {
