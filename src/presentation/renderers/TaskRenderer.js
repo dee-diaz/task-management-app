@@ -96,6 +96,13 @@ class TaskRenderer {
     listEl.innerHTML = '';
   }
 
+  cleanListTitle() {
+    const titleEl = document.querySelector('#list-title');
+    const dateEl = document.querySelector('#todays-date');
+    titleEl.textContent = '';
+    if (dateEl) dateEl.textContent = '';
+  }
+
   init() {
     const main = document.createElement('div');
     main.className = 'main';
