@@ -9,11 +9,12 @@ import { DEFAULT_LISTS, customLists } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
 import initDatePickers from './presentation/components/Calendar';
 import initDropdowns from './presentation/components/dropdowns';
+import ValidationService from './services/ValidationService';
 
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
-    this.activeListId = DEFAULT_LISTS.TODAY.id;
+    this.activeListId = DEFAULT_LISTS.ALL_TASKS.id;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.firstStart = this.checkFirstStart();
@@ -97,7 +98,6 @@ class App {
     const priorityPicker = document.querySelector('.priority-picker');
     const listPicker = document.querySelector('.list-picker');
 
-
     document.addEventListener('click', (e) => {
       if (e.target.matches('#btn-add')) {
         this.modal.showTaskModal();
@@ -135,7 +135,6 @@ class App {
       }
     });
 
-    
     priorityPicker.addEventListener(
       'click',
       this.formHandler.handlePrioritySelect,
@@ -143,12 +142,30 @@ class App {
 
     listPicker.addEventListener('click', this.formHandler.handleListSelect);
 
-    this.form.addEventListener('submit', this.handleSubmit);
+    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('Submitted');
+    const formData = new FormData(e.target);
+    const values = Object.fromEntries(formData.entries());
+    const validatedTitle = ValidationService.validateInput(
+      values['task-title'],
+    );
+
+    if (validatedTitle) {
+      this.taskManager.saveTask(
+        values['task-title'],
+        values['task-description'],
+        values['task-schedule'],
+        values['task-deadline'],
+        values['priority'],
+        values['list'],
+      );
+    }
+
+    this.form.reset();
+    this.modal.closeTaskModal();
   }
 }
 

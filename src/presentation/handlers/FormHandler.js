@@ -25,12 +25,6 @@ class FormHandler {
     const listInput = document.querySelector('#list');
     listInput.value = e.target.textContent;
   }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log('Submitted');
-  }
 }
-
 
 export default FormHandler;
