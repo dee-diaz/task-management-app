@@ -15,13 +15,13 @@ class TaskManager {
 
   getTask(taskId) {
     const tasks = this.storage.get('tasks');
-    const task = tasks.filter((task) => task._id === taskId);
-    console.dir(task);
+    const task = tasks.filter((task) => task._id === taskId)[0];
+    console.log(task);
     return task;
   }
 
   getTasks() {
-    console.table(this.tasks);
+    // console.table(this.tasks);
     return this.tasks;
   }
 

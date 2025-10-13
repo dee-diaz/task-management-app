@@ -116,9 +116,6 @@ class SidebarRenderer {
     const attrName = listId.toLowerCase().replace(' ', '-');
     const counterEl = document.querySelector(`[data-list="${attrName}"] span`);
     counterEl.textContent = count;
-
-    //Debug log
-    console.log(listId, count);
   }
 
   setActiveList(listId) {
@@ -127,6 +124,30 @@ class SidebarRenderer {
     allLists.forEach((list) => list.classList.remove('active'));
     const list = document.querySelector(`[data-list="${attrName}"]`);
     list.classList.add('active');
+  }
+
+  createAddListInput() {
+    const form = document.createElement('form');
+    form.id = 'form-custom-list';
+    const div = document.createElement('div');
+
+    const label = document.createElement('label');
+    label.textContent = 'List name';
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.id = 'custom-list-input';
+
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('form', 'form-custom-list');
+    submitBtn.innerText = 'Create'
+
+    div.appendChild(label);
+    div.appendChild(input);
+    form.appendChild(div);
+    form.appendChild(submitBtn);
+
+    return form;
   }
 
   init(userName) {
@@ -150,7 +171,6 @@ class SidebarRenderer {
     this.renderGreeting(userName);
     this.renderLists(DEFAULT_LISTS, LIST_TYPE.DEFAULT);
     this.renderLists(customLists, LIST_TYPE.CUSTOM);
-    // this.setActiveList(this.activeListId);
   }
 }
 

@@ -325,6 +325,8 @@ h3 {
       margin-top: 0.5rem;
       padding-block: 0.75rem;
       width: 100%;
+      opacity: 1;
+      transition: all 0.4s ease-out;
 
       span {
         color: var(--clr-text-primary);
@@ -333,6 +335,51 @@ h3 {
 
       &:hover span {
         color: var(--clr-text-secondary);
+      }
+
+      &.hidden {
+        opacity: 0;
+        /* transform: translateY(-5rem);
+        position: absolute; */
+        display: none;
+      }
+    }
+
+    #form-custom-list {
+      margin-top: 0.5rem;
+      padding-block: 0.75rem;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 0.75rem;
+
+      > div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+          font-size: 0.825rem;
+          color: var(--clr-text-secondary);
+        }
+
+        input {
+          border-radius: 0.325rem;
+          padding: 0.6rem;
+          width: 100%;
+          background-color: var(--clr-bg-secondary);
+          color: var(--clr-text-primary);
+          border: none;
+        }
+      }
+
+
+      button {
+        padding: 0.6rem 0.75rem;
+        border-radius: 0.325rem;
+        background-color: var(--clr-accent-brand);
+        color: var(--clr-text-primary);
       }
     }
   }
@@ -446,6 +493,10 @@ dialog#modal-task {
   color: var(--clr-text-light-blue);
   font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1rem);
   gap: 0.5rem;
+
+  &.hidden {
+    display: none;
+  }
 
   &::before {
     content: '';
@@ -867,7 +918,7 @@ dialog#modal-task {
 @media (min-width: 992px) {
   body {
     padding: 0.75rem;
-    overflow-y: hidden;
+    overflow-x: hidden;
   }
 
   #content {

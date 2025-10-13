@@ -98,6 +98,15 @@ class App {
         this.modal.closeTaskModal();
       }
 
+      if (e.target.closest('.btn-add-list')) {
+        const container = document.querySelector('.custom-list');
+        const button = e.target.closest('.btn-add-list');
+        button.classList.add('hidden');
+
+        const form = this.sidebar.createAddListInput();
+        container.appendChild(form);
+      }
+
       if (e.target.matches('#modal-start .btn-continue')) {
         this.modalHandler.handleStartModalContinue(e);
       }
@@ -133,6 +142,28 @@ class App {
         this.taskRenderer.cleanListTitle();
         this.taskRenderer.renderListTitle(this.activeListId);
         this.renderCurrentList();
+      }
+
+      if (e.target.closest('[data-id]')) {
+        const target= e.target.closest('[data-id]');
+        const taskId = target.dataset.id;
+        const task = this.taskManager.getTask(taskId);
+        
+        this.modal.showTaskModal();
+
+        const titleInput = document.querySelector('#task-title');
+        const descriptionInput = document.querySelector('#task-description');
+        const scheduleInput = document.querySelector('#task-schedule');
+        const deadlineInput = document.querySelector('#task-deadline');
+        const priorityInput = document.querySelector('#priority');
+        const listInput = document.querySelector('#list');
+
+        titleInput.value = task.title;
+        descriptionInput.value = task.description;
+        scheduleInput.value = task.scheduleDate;
+        deadlineInput.value = task.deadlineDate;
+        priorityInput.value = task.priority;
+        listInput.value = task._lists;
       }
     });
 
