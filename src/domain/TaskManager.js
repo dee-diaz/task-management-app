@@ -21,7 +21,7 @@ class TaskManager {
   }
 
   getTasks() {
-    // console.table(this.tasks);
+    console.table(this.tasks);
     return this.tasks;
   }
 
