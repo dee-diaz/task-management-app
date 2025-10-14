@@ -85,12 +85,22 @@ class App {
     }
   }
 
+  defineCustomList(task) {
+    const arr1 = Object.values(customLists);
+    const arr2 = task._lists;
+
+    const match = arr1.find((item) => arr2.includes(item.id));
+    if (!match) return '';
+    return match.id;
+  }
+
   bindEvents() {
     const priorityPicker = document.querySelector('.priority-picker');
     const listPicker = document.querySelector('.list-picker');
 
     document.addEventListener('click', (e) => {
       if (e.target.matches('#btn-add')) {
+        this.form.reset();
         this.modal.showTaskModal();
       }
 
@@ -136,7 +146,9 @@ class App {
 
       if (e.target.closest('[data-list]')) {
         const target = e.target.closest('[data-list]');
-        const formattedListId = target.dataset.list[0].toUpperCase() + target.dataset.list.slice(1).replace('-', ' ');
+        const formattedListId =
+          target.dataset.list[0].toUpperCase() +
+          target.dataset.list.slice(1).replace('-', ' ');
         this.activeListId = formattedListId;
         this.sidebar.setActiveList(this.activeListId);
         this.taskRenderer.cleanListTitle();
@@ -145,10 +157,11 @@ class App {
       }
 
       if (e.target.closest('[data-id]')) {
-        const target= e.target.closest('[data-id]');
+        const target = e.target.closest('[data-id]');
         const taskId = target.dataset.id;
         const task = this.taskManager.getTask(taskId);
-        
+        const customList = this.defineCustomList(task);
+
         this.modal.showTaskModal();
 
         const titleInput = document.querySelector('#task-title');
@@ -163,7 +176,7 @@ class App {
         scheduleInput.value = task.scheduleDate;
         deadlineInput.value = task.deadlineDate;
         priorityInput.value = task.priority;
-        listInput.value = task._lists;
+        listInput.value = customList;
       }
     });
 
