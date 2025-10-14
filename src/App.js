@@ -85,15 +85,6 @@ class App {
     }
   }
 
-  defineCustomList(task) {
-    const arr1 = Object.values(customLists);
-    const arr2 = task._lists;
-
-    const match = arr1.find((item) => arr2.includes(item.id));
-    if (!match) return '';
-    return match.id;
-  }
-
   bindEvents() {
     const priorityPicker = document.querySelector('.priority-picker');
     const listPicker = document.querySelector('.list-picker');
@@ -160,7 +151,7 @@ class App {
         const target = e.target.closest('[data-id]');
         const taskId = target.dataset.id;
         const task = this.taskManager.getTask(taskId);
-        const customList = this.defineCustomList(task);
+        const customList = FilterService.defineCustomList(task);
 
         this.modal.showTaskModal();
 
