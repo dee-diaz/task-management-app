@@ -216,11 +216,11 @@ class ModalRenderer {
 
     const completeBtn = document.createElement('button');
     completeBtn.setAttribute('type', 'button');
-    completeBtn.id = 'btn-complete';
+    completeBtn.id = 'btn-save-changes';
     const completeBtnIcon = document.createElement('img');
     completeBtnIcon.src = iconCheckCircle;
     const completeBtnText = document.createElement('span');
-    completeBtnText.textContent = 'Complete';
+    completeBtnText.textContent = 'Save changes';
     completeBtn.appendChild(completeBtnIcon);
     completeBtn.appendChild(completeBtnText);
 
@@ -269,12 +269,17 @@ class ModalRenderer {
   }
 
   closeOnOutsideClick(e) {
-    const dialogDimensions = document.querySelector('#modal-task').getBoundingClientRect();
+    const modal = document.querySelector('#modal-task');
+    const dialogDimensions = modal.getBoundingClientRect();
+    const visiblePickers = modal.querySelectorAll('.visible');
+    const datePickers = document.querySelectorAll('.air-datepicker');
     if (
       e.clientX < dialogDimensions.left ||
       e.clientX > dialogDimensions.right ||
       e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
+      e.clientY > dialogDimensions.bottom &&
+      visiblePickers.length === 0 &&
+      datePickers.length === 0
     ) {
       this.closeTaskModal();
     }

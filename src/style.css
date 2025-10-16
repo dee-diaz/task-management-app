@@ -465,16 +465,17 @@ dialog#modal-task {
     .actions {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1rem;
 
-      #btn-complete, #btn-delete {
+      #btn-save-changes,
+      #btn-delete {
         display: flex;
         align-items: center;
         border-radius: 0.5rem;
       }
 
-      #btn-complete {
-        padding: 0.625rem 0.75rem;
+      #btn-save-changes {
+        padding: 0.625rem;
         gap: 0.25rem;
         border: 1px solid var(--clr-text-tertiary);
 
