@@ -61,9 +61,8 @@ class TaskManager {
     if (index !== -1) this.tasks.splice(index, 1);
     this.storage.save('tasks', this.tasks);
 
-    // Debug logs
+    // Debug log
     console.log(`Task '${deletedTask.title}' has been deleted`);
-    console.table(this.tasks);
 
     return deletedTask;
   }

@@ -31,6 +31,7 @@ class App {
     this.form = document.querySelector('#form-task');
     this.formHandler = new FormHandler(this.form);
     this.bindEvents();
+    this.lastClickedTaskId;
   }
 
   checkFirstStart() {
@@ -147,11 +148,11 @@ class App {
         this.renderCurrentList();
       }
 
-
       // Open an already created task
       if (e.target.closest('[data-id]')) {
         const target = e.target.closest('[data-id]');
         const taskId = target.dataset.id;
+        this.lastClickedTaskId = taskId;
         const task = this.taskManager.getTask(taskId);
         const customList = FilterService.defineCustomList(task);
 
@@ -170,6 +171,14 @@ class App {
         deadlineInput.value = task.deadlineDate;
         priorityInput.value = task.priority;
         listInput.value = customList;
+      }
+
+      if (e.target.closest('#btn-delete')) {
+        this.taskManager.deleteTask(this.lastClickedTaskId);
+        this.modal.closeTaskModal();
+        this.form.reset();
+        this.renderCurrentList(this.activeListId);
+        this.updateSidebarCounters();
       }
     });
 
