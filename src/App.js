@@ -147,13 +147,15 @@ class App {
         this.renderCurrentList();
       }
 
+
+      // Open an already created task
       if (e.target.closest('[data-id]')) {
         const target = e.target.closest('[data-id]');
         const taskId = target.dataset.id;
         const task = this.taskManager.getTask(taskId);
         const customList = FilterService.defineCustomList(task);
 
-        this.modal.showTaskModal();
+        this.modal.showTaskModal('edit');
 
         const titleInput = document.querySelector('#task-title');
         const descriptionInput = document.querySelector('#task-description');

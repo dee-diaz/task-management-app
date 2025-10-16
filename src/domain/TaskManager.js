@@ -69,11 +69,12 @@ class TaskManager {
   }
 
   editTask(taskId) {
-    const taskToEdit = this.tasks.find((task) => task._id === taskId);
-    const index = this.tasks.findIndex((task) => task._id === taskId);
-    const id = taskToEdit.id;
+    const tasks = this.storage.get('tasks');
+    const task = tasks.find(task => task._id === taskId);
 
-    // some logic
+    // if (task) {
+      
+    // }
   }
 }
 

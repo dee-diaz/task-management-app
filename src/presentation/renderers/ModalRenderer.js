@@ -3,6 +3,8 @@ import iconSchedule from '../../assets/img/icon-schedule.svg';
 import iconDeadline from '../../assets/img/icon-deadline.svg';
 import iconPriority from '../../assets/img/icon-priority.svg';
 import iconList from '../../assets/img/icon-list.svg';
+import iconCheckCircle from '../../assets/img/icon-check-circle.svg';
+import iconTrash from '../../assets/img/icon-trash.svg';
 
 class ModalRenderer {
   constructor(container) {
@@ -194,7 +196,7 @@ class ModalRenderer {
     btnAdd.setAttribute('type', 'submit');
     btnAdd.setAttribute('form', 'form-task');
     btnAdd.textContent = 'Add';
-    btnAdd.className = 'btn btn-primary'
+    btnAdd.className = 'btn btn-primary';
 
     row1.appendChild(taskTitle);
     row2.appendChild(taskDescription);
@@ -208,9 +210,43 @@ class ModalRenderer {
     modal.appendChild(form);
   }
 
-  showTaskModal() {
+  adaptFormForEditing() {
+    const row4 = document.querySelector('.row-4');
+    const submitBtn = row4.querySelector('.btn-primary');
+    submitBtn.remove();
+
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'actions';
+
+    const completeBtn = document.createElement('button');
+    completeBtn.setAttribute('type', 'button');
+    completeBtn.id = 'btn-complete';
+    const completeBtnIcon = document.createElement('img');
+    completeBtnIcon.src = iconCheckCircle;
+    const completeBtnText = document.createElement('span');
+    completeBtnText.textContent = 'Complete';
+    completeBtn.appendChild(completeBtnIcon);
+    completeBtn.appendChild(completeBtnText);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('type', 'button');
+    deleteBtn.id = 'btn-delete';
+    const deleteBtnIcon = document.createElement('img');
+    deleteBtnIcon.src = iconTrash;
+    deleteBtn.appendChild(deleteBtnIcon);
+
+    actionsDiv.appendChild(completeBtn);
+    actionsDiv.appendChild(deleteBtn);
+    row4.appendChild(actionsDiv);
+  }
+
+  showTaskModal(type) {
     const modal = document.querySelector('#modal-task');
     modal.showModal();
+
+    if (type === 'edit') {
+      this.adaptFormForEditing();
+    }
   }
 
   closeTaskModal() {

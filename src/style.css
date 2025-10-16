@@ -374,7 +374,6 @@ h3 {
         }
       }
 
-
       button {
         padding: 0.6rem 0.75rem;
         border-radius: 0.325rem;
@@ -460,6 +459,37 @@ dialog#modal-task {
     position: relative;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--clr-divider);
+  }
+
+  .row-4 {
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      #btn-complete, #btn-delete {
+        display: flex;
+        align-items: center;
+        border-radius: 0.5rem;
+      }
+
+      #btn-complete {
+        padding: 0.625rem 0.75rem;
+        gap: 0.25rem;
+        border: 1px solid var(--clr-text-tertiary);
+
+        > span {
+          color: var(--clr-text-secondary);
+          font-size: 1rem;
+        }
+      }
+
+      #btn-delete {
+        padding: 0.625rem;
+        border: 1px solid var(--clr-red-400);
+        background-color: hsla(0, 68%, 60%, 0.06);
+      }
+    }
   }
 }
 

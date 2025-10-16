@@ -2,8 +2,8 @@ import { format } from 'date-fns';
 
 // Task model, basic task operations
 class Task {
-  constructor(title, description, scheduleDate, deadlineDate, priority) {
-    this._id = crypto.randomUUID();
+  constructor(title, description, scheduleDate, deadlineDate, priority, id) {
+    this._id = id || crypto.randomUUID();
     this._creationDate = createDate();
     this.title = title;
     this.description = description;
