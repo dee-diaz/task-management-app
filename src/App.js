@@ -148,8 +148,11 @@ class App {
         this.renderCurrentList();
       }
 
-      // Open an already created task
-      if (e.target.closest('[data-id]') && (!e.target.matches('input'))) {
+      // Edit task
+      if (
+        e.target.closest('[data-id]') &&
+        !e.target.matches('input[type="checkbox"]')
+      ) {
         const target = e.target.closest('[data-id]');
         const taskId = target.dataset.id;
         this.lastClickedTaskId = taskId;
@@ -177,7 +180,7 @@ class App {
         this.taskManager.deleteTask(this.lastClickedTaskId);
         this.modal.closeTaskModal();
         this.form.reset();
-        this.renderCurrentList(this.activeListId);
+        this.renderCurrentList();
         this.updateSidebarCounters();
       }
     });
@@ -191,13 +194,20 @@ class App {
 
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 
-    document.querySelector('#modal-task').addEventListener('click', (e) => this.modal.closeOnOutsideClick(e));
+    document.querySelector('#modal-task').addEventListener('click', (e) => {
+      const closed = this.modal.closeOnOutsideClick(e);
+
+      if (closed) {
+        const values = this.formHandler.saveFormData(this.form);
+        this.taskManager.editTask(this.lastClickedTaskId, values);
+        this.renderCurrentList();
+      }
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const values = Object.fromEntries(formData.entries());
+    const values = this.formHandler.saveFormData(this.form);
     const validatedTitle = ValidationService.validateInput(
       values['task-title'],
     );

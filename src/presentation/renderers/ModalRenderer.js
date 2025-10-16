@@ -220,7 +220,7 @@ class ModalRenderer {
     const completeBtnIcon = document.createElement('img');
     completeBtnIcon.src = iconCheckCircle;
     const completeBtnText = document.createElement('span');
-    completeBtnText.textContent = 'Save changes';
+    completeBtnText.textContent = 'Save';
     completeBtn.appendChild(completeBtnIcon);
     completeBtn.appendChild(completeBtnText);
 
@@ -273,16 +273,21 @@ class ModalRenderer {
     const dialogDimensions = modal.getBoundingClientRect();
     const visiblePickers = modal.querySelectorAll('.visible');
     const datePickers = document.querySelectorAll('.air-datepicker');
-    if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom &&
+
+    const clickedOutside =
+      (e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom) &&
       visiblePickers.length === 0 &&
-      datePickers.length === 0
-    ) {
+      datePickers.length === 0;
+
+    if (clickedOutside) {
       this.closeTaskModal();
+      return true; // flag “modal is closed”
     }
+
+    return false; // return false if clicked inside the modal
   }
 }
 

@@ -25,6 +25,13 @@ class FormHandler {
     const listInput = document.querySelector('#list');
     listInput.value = e.target.textContent;
   }
+
+  saveFormData(form) {
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries());
+    console.log(values);
+    return values;
+  }
 }
 
 export default FormHandler;

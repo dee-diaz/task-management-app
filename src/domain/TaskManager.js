@@ -1,6 +1,6 @@
 // CRUD operations, data management
 import Task from './Task';
-import { DEFAULT_LISTS } from '../utils/Constants';
+import { DEFAULT_LISTS, customLists } from '../utils/Constants';
 
 class TaskManager {
   constructor(storageAdapter) {
@@ -21,11 +21,11 @@ class TaskManager {
   }
 
   getTasks() {
-    // console.table(this.tasks);
     return this.tasks;
   }
+  
 
-  saveTask(title, description, scheduleDate, deadlineDate, priority, list) {
+  saveTask(title, description, scheduleDate, deadlineDate, priority, list, id) {
     const newTask = new Task(title);
     description
       ? (newTask.description = description)
@@ -41,6 +41,7 @@ class TaskManager {
     // List logic
     if (scheduleDate === 'Today' || !scheduleDate) newTask._lists.push('Today');
     if (list) newTask._lists.push(list);
+    if (id) newTask._id = id;
     this.tasks.push(newTask);
     this.storage.save('tasks', this.tasks);
 
@@ -67,13 +68,31 @@ class TaskManager {
     return deletedTask;
   }
 
-  editTask(taskId) {
+  editTask(taskId, formData) {
     const tasks = this.storage.get('tasks');
-    const task = tasks.find(task => task._id === taskId);
+    const index = tasks.findIndex((task) => task._id === taskId);
+    const task = tasks[index];
 
-    // if (task) {
-      
-    // }
+    if (index !== -1) {
+      task.title = formData['task-title'];
+      task.description = formData['task-description'];
+      task.scheduleDate = formData['task-schedule'];
+      task.deadlineDate = formData['task-deadline'];
+      task.priority = formData['priority'];
+
+      if (formData['list']) {
+        task._lists.forEach((list, index) => {
+          if (customLists[list.toLowerCase()]) {
+            task._lists[index] = formData['list'];
+          }
+        });
+      }
+
+      this.tasks = tasks;
+      this.storage.save('tasks', this.tasks);
+    } else {
+      console.warn('Task not found by ID');
+    }
   }
 }
 
