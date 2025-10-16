@@ -90,8 +90,6 @@ class TaskManager {
 
       this.tasks = tasks;
       this.storage.save('tasks', this.tasks);
-    } else {
-      console.warn('Task not found by ID');
     }
   }
 }

@@ -115,12 +115,6 @@ class App {
       if (e.target.matches('#modal-start .btn-skip')) {
         this.modalHandler.handleNameSkip();
       }
-      if (
-        e.target.matches('#task-schedule') ||
-        e.target.matches('#task-deadline')
-      ) {
-        this.formHandler.handleDateSelect();
-      }
       if (e.target.matches('#priority')) {
         priorityPicker.classList.toggle('visible');
       }
@@ -174,6 +168,9 @@ class App {
         deadlineInput.value = task.deadlineDate;
         priorityInput.value = task.priority;
         listInput.value = customList;
+
+        this.taskRenderer.highlightPriorityChoice();
+        this.taskRenderer.highlightListChoice();
       }
 
       if (e.target.closest('#btn-delete')) {
@@ -182,6 +179,13 @@ class App {
         this.form.reset();
         this.renderCurrentList();
         this.updateSidebarCounters();
+      }
+
+      if (e.target.closest('#btn-save-changes')) {
+        const values = this.formHandler.saveFormData(this.form);
+        this.taskManager.editTask(this.lastClickedTaskId, values);
+        this.modal.closeTaskModal();
+        this.renderCurrentList();
       }
     });
 

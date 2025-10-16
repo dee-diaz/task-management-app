@@ -4,20 +4,17 @@ class FormHandler {
     this.form = formReference;
   }
 
-  handleDateSelect() {
-    console.log('Choose a date');
-  }
-
   handlePrioritySelect(e) {
     const priorityInput = document.querySelector('#priority');
-    if (e.target.matches('h5')) return;
-    if (e.target.matches('.text')) {
-      priorityInput.value = e.target.textContent;
-    } else if (e.target.matches('.exclamation')) {
-      priorityInput.value = e.target.nextElementSibling.textContent;
-    } else {
-      priorityInput.value = e.target.children[1].textContent;
-    }
+    const listItems = document.querySelectorAll('.priority-picker li');
+    listItems.forEach(item => item.classList.remove('active'));
+
+    const selectedListItem = e.target.closest('li');
+    selectedListItem.classList.add('active');
+
+    if (selectedListItem.id === 'low-priority') priorityInput.value = 'Low';
+    if (selectedListItem.id === 'medium-priority') priorityInput.value = 'Medium';
+    if (selectedListItem.id === 'high-priority') priorityInput.value = 'High';
   }
 
   handleListSelect(e) {

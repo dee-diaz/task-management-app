@@ -1,4 +1,4 @@
-import { DEFAULT_LISTS, PRIORITY } from '../../utils/Constants';
+import { DEFAULT_LISTS, customLists, PRIORITY } from '../../utils/Constants';
 import { format } from 'date-fns';
 import FilterService from '../../services/FilterService';
 
@@ -101,6 +101,35 @@ class TaskRenderer {
     const dateEl = document.querySelector('#todays-date');
     titleEl.textContent = '';
     if (dateEl) dateEl.textContent = '';
+  }
+
+  highlightPriorityChoice() {
+    const priorityInput = document.querySelector('#priority');
+    const priorityPicker = document.querySelector('.priority-picker');
+    const listItems = priorityPicker.querySelectorAll('li');
+    listItems.forEach((item) => item.classList.remove('active'));
+
+    Object.values(PRIORITY).forEach((item) => {
+      if (priorityInput.value === item) {
+        const priorityVal = item.toLowerCase();
+        const li = priorityPicker.querySelector(`#${priorityVal}-priority`);
+        li.classList.add('active');
+      }
+    });
+  }
+
+  highlightListChoice() {
+    const listInput = document.querySelector('#list');
+    const listPicker = document.querySelector('.list-picker')
+    const listItems = listPicker.querySelectorAll('li');
+    listItems.forEach((item) => item.classList.remove('active'));
+
+    Object.keys(customLists).forEach(item => {
+      if (listInput.value.toLowerCase() === item) {
+        const li = listPicker.querySelector(`#list-${item}`);
+        li.classList.add('active');
+      }
+    })
   }
 
   init() {
