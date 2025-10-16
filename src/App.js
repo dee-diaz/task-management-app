@@ -149,7 +149,7 @@ class App {
       }
 
       // Open an already created task
-      if (e.target.closest('[data-id]')) {
+      if (e.target.closest('[data-id]') && (!e.target.matches('input'))) {
         const target = e.target.closest('[data-id]');
         const taskId = target.dataset.id;
         this.lastClickedTaskId = taskId;

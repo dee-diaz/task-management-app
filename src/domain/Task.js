@@ -5,6 +5,7 @@ class Task {
   constructor(title, description, scheduleDate, deadlineDate, priority, id) {
     this._id = id || crypto.randomUUID();
     this._creationDate = createDate();
+    this.completed = false;
     this.title = title;
     this.description = description;
     this.scheduleDate = scheduleDate;
