@@ -122,11 +122,11 @@ class App {
         listPicker.classList.toggle('visible');
       }
 
-      if (e.target.id !== 'priority') {
+      if (e.target.id !== 'priority' && priorityPicker) {
         priorityPicker.classList.remove('visible');
       }
 
-      if (e.target.id !== 'list') {
+      if (e.target.id !== 'list' && listPicker) {
         listPicker.classList.remove('visible');
       }
 
@@ -189,12 +189,13 @@ class App {
       }
     });
 
-    priorityPicker.addEventListener(
-      'click',
-      this.formHandler.handlePrioritySelect,
-    );
+    if (priorityPicker)
+      priorityPicker.addEventListener(
+        'click',
+        this.formHandler.handlePrioritySelect,
+      );
 
-    listPicker.addEventListener('click', this.formHandler.handleListSelect);
+    if (listPicker) listPicker.addEventListener('click', this.formHandler.handleListSelect);
 
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 

@@ -16,7 +16,6 @@ class TaskManager {
   getTask(taskId) {
     const tasks = this.storage.get('tasks');
     const task = tasks.filter((task) => task._id === taskId)[0];
-    console.log(task);
     return task;
   }
 
