@@ -190,6 +190,8 @@ class App {
     listPicker.addEventListener('click', this.formHandler.handleListSelect);
 
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+
+    document.querySelector('#modal-task').addEventListener('click', (e) => this.modal.closeOnOutsideClick(e));
   }
 
   handleSubmit(e) {

@@ -267,6 +267,18 @@ class ModalRenderer {
     const modal = document.querySelector('#modal-task');
     modal.close();
   }
+
+  closeOnOutsideClick(e) {
+    const dialogDimensions = document.querySelector('#modal-task').getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      this.closeTaskModal();
+    }
+  }
 }
 
 export default ModalRenderer;
