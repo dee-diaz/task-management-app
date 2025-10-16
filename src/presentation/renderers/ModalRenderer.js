@@ -192,11 +192,7 @@ class ModalRenderer {
     listContainer.appendChild(listIcon);
     listContainer.appendChild(listInput);
 
-    const btnAdd = document.createElement('button');
-    btnAdd.setAttribute('type', 'submit');
-    btnAdd.setAttribute('form', 'form-task');
-    btnAdd.textContent = 'Add';
-    btnAdd.className = 'btn btn-primary';
+    const btnAdd = this.createSubmitButton();
 
     row1.appendChild(taskTitle);
     row2.appendChild(taskDescription);
@@ -240,8 +236,26 @@ class ModalRenderer {
     row4.appendChild(actionsDiv);
   }
 
+  createSubmitButton() {
+    const btnAdd = document.createElement('button');
+    btnAdd.setAttribute('type', 'submit');
+    btnAdd.setAttribute('form', 'form-task');
+    btnAdd.textContent = 'Add';
+    btnAdd.className = 'btn btn-primary';
+    return btnAdd;
+  }
+
   showTaskModal(type) {
     const modal = document.querySelector('#modal-task');
+    const submitBtn = modal.querySelector('button[type="submit"]');
+    if (!submitBtn) {
+      const row4 = document.querySelector('.row-4');
+      const actions = document.querySelector('.actions');
+      actions.remove();
+      const btnAdd = this.createSubmitButton();
+      row4.appendChild(btnAdd);
+    }
+
     modal.showModal();
 
     if (type === 'edit') {
