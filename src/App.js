@@ -215,7 +215,11 @@ class App {
         const taskId = e.target.closest('li').dataset.id;
         const state = e.target.checked;
         this.taskManager.toggleCompletion(taskId, state);
-        // this.renderCurrentList();
+
+        setTimeout(() => {
+          this.updateSidebarCounters();
+          this.renderCurrentList();
+        }, 400);
       }
     });
   }
@@ -239,7 +243,7 @@ class App {
 
       this.form.reset();
       this.modal.closeTaskModal();
-      this.renderCurrentList(this.activeListId);
+      this.renderCurrentList();
       this.updateSidebarCounters();
     }
   }

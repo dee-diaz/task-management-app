@@ -3,7 +3,15 @@ import { customLists } from '../utils/Constants';
 
 class FilterService {
   static filterByList(tasks, listName) {
-    const filteredList = tasks.filter((task) => task._lists.includes(listName));
+    let filteredList;
+    if (listName === 'Completed') {
+      filteredList = tasks.filter((task) => task._lists.includes(listName));
+    } else {
+      filteredList = tasks.filter(
+        (task) =>
+          task._lists.includes(listName) && !task._lists.includes('Completed'),
+      );
+    }
     return filteredList;
   }
 
