@@ -1,15 +1,16 @@
 // Translates UI filters → business queries
-import { customLists } from '../utils/Constants';
+import { DEFAULT_LISTS, customLists } from '../utils/Constants';
 
 class FilterService {
   static filterByList(tasks, listName) {
     let filteredList;
-    if (listName === 'Completed') {
+    if (listName === DEFAULT_LISTS.COMPLETED.id) {
       filteredList = tasks.filter((task) => task._lists.includes(listName));
     } else {
       filteredList = tasks.filter(
         (task) =>
-          task._lists.includes(listName) && !task._lists.includes('Completed'),
+          task._lists.includes(listName) &&
+          !task._lists.includes(DEFAULT_LISTS.COMPLETED.id),
       );
     }
     return filteredList;
