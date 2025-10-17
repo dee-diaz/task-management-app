@@ -115,10 +115,10 @@ class App {
       if (e.target.matches('#modal-start .btn-skip')) {
         this.modalHandler.handleNameSkip();
       }
-      if (e.target.matches('#priority')) {
+      if (e.target.matches('#priority') && priorityPicker) {
         priorityPicker.classList.toggle('visible');
       }
-      if (e.target.matches('#list')) {
+      if (e.target.matches('#list') && listPicker) {
         listPicker.classList.toggle('visible');
       }
 
@@ -195,7 +195,8 @@ class App {
         this.formHandler.handlePrioritySelect,
       );
 
-    if (listPicker) listPicker.addEventListener('click', this.formHandler.handleListSelect);
+    if (listPicker)
+      listPicker.addEventListener('click', this.formHandler.handleListSelect);
 
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 
@@ -206,6 +207,15 @@ class App {
         const values = this.formHandler.saveFormData(this.form);
         this.taskManager.editTask(this.lastClickedTaskId, values);
         this.renderCurrentList();
+      }
+    });
+
+    document.addEventListener('change', (e) => {
+      if (e.target.matches('input[type="checkbox"]')) {
+        const taskId = e.target.closest('li').dataset.id;
+        const state = e.target.checked;
+        this.taskManager.toggleCompletion(taskId, state);
+        // this.renderCurrentList();
       }
     });
   }

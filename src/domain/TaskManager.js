@@ -16,13 +16,13 @@ class TaskManager {
   getTask(taskId) {
     const tasks = this.storage.get('tasks');
     const task = tasks.filter((task) => task._id === taskId)[0];
+    console.log(task);
     return task;
   }
 
   getTasks() {
     return this.tasks;
   }
-  
 
   saveTask(title, description, scheduleDate, deadlineDate, priority, list, id) {
     const newTask = new Task(title);
@@ -90,6 +90,25 @@ class TaskManager {
       this.tasks = tasks;
       this.storage.save('tasks', this.tasks);
     }
+  }
+
+  toggleCompletion(taskId, state) {
+    const tasks = this.storage.get('tasks');
+    const index = tasks.findIndex((task) => task._id === taskId);
+    const task = tasks[index];
+    task.completed = state;
+
+    if (task.completed && (!task._lists.includes(DEFAULT_LISTS.COMPLETED.id))) {
+      task._lists.push(DEFAULT_LISTS.COMPLETED.id);
+    } else {
+      const index = task._lists.findIndex(
+        (list) => list === DEFAULT_LISTS.COMPLETED.id,
+      );
+      task._lists.splice(index, 1);
+    }
+
+    this.tasks = tasks;
+    this.storage.save('tasks', this.tasks);
   }
 }
 
