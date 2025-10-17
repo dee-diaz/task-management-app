@@ -22,13 +22,14 @@ class TaskRenderer {
     }
   }
 
-  renderTask(id, title, deadlineDate, priority, list) {
+  renderTask(id, title, deadlineDate, priority, list, isChecked) {
     const li = document.createElement('li');
     li.setAttribute('data-id', id);
     li.className = 'task-list-item';
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.checked = isChecked;
     const label = document.createElement('label');
     label.textContent = title;
     const inputWrapper = document.createElement('div');
@@ -87,6 +88,7 @@ class TaskRenderer {
         task.deadlineDate,
         task.priority,
         customList,
+        task.completed,
       );
       taskList.appendChild(li);
     });
