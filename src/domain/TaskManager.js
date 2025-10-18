@@ -80,11 +80,15 @@ class TaskManager {
       task.priority = formData['priority'];
 
       if (formData['list']) {
-        task._lists.forEach((list, index) => {
-          if (customLists[list.toLowerCase()]) {
-            task._lists[index] = formData['list'];
-          }
-        });
+        const newList = formData['list'];
+        const index = task._lists.findIndex(
+          (list) => customLists[list.toLowerCase()],
+        );
+        if (index !== -1) {
+          task._lists[index] = newList;
+        } else {
+          task._lists.push(newList);
+        }
       }
 
       this.tasks = tasks;
@@ -98,7 +102,7 @@ class TaskManager {
     const task = tasks[index];
     task.completed = state;
 
-    if (task.completed && (!task._lists.includes(DEFAULT_LISTS.COMPLETED.id))) {
+    if (task.completed && !task._lists.includes(DEFAULT_LISTS.COMPLETED.id)) {
       task._lists.push(DEFAULT_LISTS.COMPLETED.id);
     } else {
       const index = task._lists.findIndex(

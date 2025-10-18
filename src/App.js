@@ -169,8 +169,8 @@ class App {
         priorityInput.value = task.priority;
         listInput.value = customList;
 
-        this.taskRenderer.highlightPriorityChoice();
-        this.taskRenderer.highlightListChoice();
+        if (priorityInput.value) this.taskRenderer.highlightPriorityChoice();
+        if (listInput.value) this.taskRenderer.highlightListChoice();
       }
 
       if (e.target.closest('#btn-delete')) {
@@ -206,6 +206,7 @@ class App {
       if (closed) {
         const values = this.formHandler.saveFormData(this.form);
         this.taskManager.editTask(this.lastClickedTaskId, values);
+        this.updateSidebarCounters();
         this.renderCurrentList();
       }
     });
