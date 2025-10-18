@@ -105,8 +105,13 @@ class App {
         const button = e.target.closest('.btn-add-list');
         button.classList.add('hidden');
 
-        const form = this.sidebar.createAddListInput();
-        container.appendChild(form);
+        const listForm = this.sidebar.createAddListInput();
+        container.appendChild(listForm);
+
+        if (listForm)
+          listForm.addEventListener('submit', (e) => {
+            this.formHandler.handleListAdd(e);
+          });
       }
 
       if (e.target.matches('#modal-start .btn-continue')) {

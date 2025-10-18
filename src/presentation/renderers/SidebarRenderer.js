@@ -132,10 +132,12 @@ class SidebarRenderer {
     const div = document.createElement('div');
 
     const label = document.createElement('label');
+    label.setAttribute('for', 'custom-list-input');
     label.textContent = 'List name';
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.id = 'custom-list-input';
+    input.name = 'custom-list-input';
 
     const submitBtn = document.createElement('button');
     submitBtn.setAttribute('type', 'submit');

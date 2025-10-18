@@ -1,6 +1,6 @@
 const styles = getComputedStyle(document.documentElement);
 
-const LIST_COLORS = {
+export const LIST_COLORS = {
   GREEN: styles.getPropertyValue('--clr-list-green').trim(),
   BLUE: styles.getPropertyValue('--clr-list-blue').trim(),
   PINK: styles.getPropertyValue('--clr-list-pink').trim(),
