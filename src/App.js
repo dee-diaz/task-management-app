@@ -220,7 +220,7 @@ class App {
         setTimeout(() => {
           this.updateSidebarCounters();
           this.renderCurrentList();
-        }, 400);
+        }, 300);
       }
     });
   }
