@@ -11,6 +11,7 @@ import initDatePickers from './presentation/components/Calendar';
 import initDropdowns from './presentation/components/dropdowns';
 import ValidationService from './services/ValidationService';
 import SortingService from './services/SortingService';
+import ListManager from './domain/ListManager';
 
 // Orchestrates all layers, manages application state
 class App {
@@ -18,6 +19,7 @@ class App {
     this.activeListId = DEFAULT_LISTS.TODAY.id;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
+    this.listManager = new ListManager(this.storage);
     this.firstStart = this.checkFirstStart();
     this.userName;
     this.container = document.querySelector('#content');
