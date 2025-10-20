@@ -1,4 +1,4 @@
-import { DEFAULT_LISTS, customLists, PRIORITY } from '../../utils/Constants';
+import { DEFAULT_LISTS, PRIORITY } from '../../utils/Constants';
 import { format } from 'date-fns';
 import FilterService from '../../services/FilterService';
 
@@ -12,7 +12,7 @@ class TaskRenderer {
     const h1 = document.querySelector('#list-title');
     h1.textContent = listId;
 
-    if (listId === DEFAULT_LISTS.TODAY.id) {
+    if (listId === DEFAULT_LISTS.TODAY.title) {
       const today = format(new Date(), 'EEEE, MMMM d');
       const para = document.createElement('p');
       para.id = 'todays-date';
@@ -79,9 +79,10 @@ class TaskRenderer {
 
   renderTaskList(tasks) {
     const taskList = document.querySelector('.task-list');
+    const customLists = JSON.parse(localStorage.getItem('lists')) || [];
     this.cleanTaskList(taskList);
     tasks.forEach((task) => {
-      const customList = FilterService.defineCustomList(task);
+      const customList = FilterService.defineCustomList(task, customLists);
       const li = this.renderTask(
         task._id,
         task.title,
@@ -120,18 +121,23 @@ class TaskRenderer {
     });
   }
 
-  highlightListChoice() {
+  highlightListChoice(customListArr) {
     const listInput = document.querySelector('#list');
-    const listPicker = document.querySelector('.list-picker')
+    const listPicker = document.querySelector('.list-picker');
     const listItems = listPicker.querySelectorAll('li');
     listItems.forEach((item) => item.classList.remove('active'));
 
-    Object.keys(customLists).forEach(item => {
-      if (listInput.value.toLowerCase() === item) {
-        const li = listPicker.querySelector(`#list-${item}`);
-        li.classList.add('active');
+    customListArr.forEach((listObj) => {
+      if (
+        listObj.title &&
+        listInput.value.toLowerCase() === listObj.title.toLowerCase()
+      ) {
+        const li = listPicker.querySelector(
+          `#list-${listObj.title.toLowerCase()}`,
+        );
+        if (li) li.classList.add('active');
       }
-    })
+    });
   }
 
   init() {

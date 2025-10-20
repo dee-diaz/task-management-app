@@ -31,7 +31,7 @@ class TaskManager {
       : (newTask.description = '');
     scheduleDate
       ? (newTask.scheduleDate = scheduleDate)
-      : (newTask.scheduleDate = DEFAULT_LISTS.TODAY.id);
+      : (newTask.scheduleDate = DEFAULT_LISTS.TODAY.title);
     deadlineDate
       ? (newTask.deadlineDate = deadlineDate)
       : (newTask.deadlineDate = '');
@@ -102,11 +102,11 @@ class TaskManager {
     const task = tasks[index];
     task.completed = state;
 
-    if (task.completed && !task._lists.includes(DEFAULT_LISTS.COMPLETED.id)) {
-      task._lists.push(DEFAULT_LISTS.COMPLETED.id);
+    if (task.completed && !task._lists.includes(DEFAULT_LISTS.COMPLETED.title)) {
+      task._lists.push(DEFAULT_LISTS.COMPLETED.title);
     } else {
       const index = task._lists.findIndex(
-        (list) => list === DEFAULT_LISTS.COMPLETED.id,
+        (list) => list === DEFAULT_LISTS.COMPLETED.title,
       );
       task._lists.splice(index, 1);
     }

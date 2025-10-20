@@ -36,10 +36,61 @@ class SidebarRenderer {
       listTypeEl.appendChild(ulForCustom);
     }
 
-    Object.values(lists).forEach((list) => {
+    const listsArr = Object.values(lists) || lists;
+
+    // Object.values(lists).forEach((list) => {
+    //   const li = document.createElement('li');
+    //   const button = document.createElement('button');
+    //   const attrVal = list.id.toLowerCase().replace(' ', '-');
+    //   button.setAttribute('data-list', attrVal);
+    //   const div = document.createElement('div');
+
+    //   const svgns = 'http://www.w3.org/2000/svg';
+    //   const svg = document.createElementNS(svgns, 'svg');
+
+    //   if (listType === LIST_TYPE.DEFAULT) {
+    //     svg.setAttribute('width', '20');
+    //     svg.setAttribute('height', '20');
+    //     svg.setAttribute('viewBox', '0 0 20 20');
+    //     svg.setAttribute('fill', 'none');
+
+    //     const path = document.createElementNS(svgns, 'path');
+    //     path.setAttribute('d', list.svgPath);
+    //     svg.appendChild(path);
+    //   } else if (listType === LIST_TYPE.CUSTOM) {
+    //     svg.setAttribute('width', '12');
+    //     svg.setAttribute('height', '12');
+    //     svg.setAttribute('viewBox', '0 0 12 12');
+    //     svg.setAttribute('fill', 'none');
+    //     const circle = document.createElementNS(svgns, 'circle');
+    //     circle.setAttribute('cx', '6');
+    //     circle.setAttribute('cy', '6');
+    //     circle.setAttribute('r', '5.5');
+    //     circle.setAttribute('stroke', list.color);
+    //     svg.appendChild(circle);
+    //   }
+
+    //   const para = document.createElement('p');
+    //   para.textContent = list.id;
+
+    //   const counter = document.createElement('span');
+    //   counter.textContent = '0';
+
+    //   div.appendChild(svg);
+    //   div.appendChild(para);
+    //   button.appendChild(div);
+    //   button.appendChild(counter);
+    //   li.appendChild(button);
+
+    //   listType === LIST_TYPE.DEFAULT
+    //     ? listTypeEl.appendChild(li)
+    //     : ulForCustom.appendChild(li);
+    // });
+
+    listsArr.forEach((list) => {
       const li = document.createElement('li');
       const button = document.createElement('button');
-      const attrVal = list.id.toLowerCase().replace(' ', '-');
+      const attrVal = list.title.toLowerCase().replace(' ', '-');
       button.setAttribute('data-list', attrVal);
       const div = document.createElement('div');
 
@@ -69,7 +120,7 @@ class SidebarRenderer {
       }
 
       const para = document.createElement('p');
-      para.textContent = list.id;
+      para.textContent = list.title;
 
       const counter = document.createElement('span');
       counter.textContent = '0';
@@ -84,6 +135,7 @@ class SidebarRenderer {
         ? listTypeEl.appendChild(li)
         : ulForCustom.appendChild(li);
     });
+
 
     if (listType === LIST_TYPE.CUSTOM) {
       const addBtn = document.createElement('button');
@@ -115,7 +167,7 @@ class SidebarRenderer {
   updateListCounter(listId, count) {
     const attrName = listId.toLowerCase().replace(' ', '-');
     const counterEl = document.querySelector(`[data-list="${attrName}"] span`);
-    counterEl.textContent = count;
+    if (counterEl) counterEl.textContent = count;
   }
 
   setActiveList(listId) {
@@ -142,7 +194,7 @@ class SidebarRenderer {
     const submitBtn = document.createElement('button');
     submitBtn.setAttribute('type', 'submit');
     submitBtn.setAttribute('form', 'form-custom-list');
-    submitBtn.innerText = 'Create'
+    submitBtn.innerText = 'Create';
 
     div.appendChild(label);
     div.appendChild(input);
@@ -169,10 +221,9 @@ class SidebarRenderer {
     sidebar.appendChild(customList);
     this.container.appendChild(sidebar);
 
-    // REVIEW LATER
     this.renderGreeting(userName);
     this.renderLists(DEFAULT_LISTS, LIST_TYPE.DEFAULT);
-    this.renderLists(customLists, LIST_TYPE.CUSTOM);
+    // this.renderLists(customLists, LIST_TYPE.CUSTOM);
   }
 }
 

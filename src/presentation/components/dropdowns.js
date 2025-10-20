@@ -54,7 +54,7 @@ import { customLists } from '../../utils/Constants';
 //   }
 // }
 
-function createDropdown(inputId) {
+function createDropdown(inputId, customListArr) {
   const dropdownContainer = document.createElement('div');
   dropdownContainer.className = `${inputId}-picker`;
   const title = document.createElement('h5');
@@ -94,9 +94,9 @@ function createDropdown(inputId) {
   }
 
   if (inputId === 'list') {
-    for (let i = 0; i < Object.keys(customLists).length; i++) {
+    for (let i = 0; i < customListArr.length; i++) {
       const li = document.createElement('li');
-      li.id = 'list-' + Object.keys(customLists)[i];
+      li.id = 'list-' + customListArr[i].title.toLowerCase();
 
       const svgns = 'http://www.w3.org/2000/svg';
       const svg = document.createElementNS(svgns, 'svg');
@@ -109,13 +109,13 @@ function createDropdown(inputId) {
       circle.setAttribute('cx', '8');
       circle.setAttribute('cy', '8');
       circle.setAttribute('r', '4.3');
-      circle.setAttribute('stroke', Object.values(customLists)[i].color);
+      circle.setAttribute('stroke', customListArr[i].markerColor);
 
       svg.appendChild(circle);
 
       const text = document.createElement('span');
       text.className = 'text';
-      text.textContent = Object.values(customLists)[i].id;
+      text.textContent = customListArr[i].title;
 
       li.appendChild(svg);
       li.appendChild(text);
@@ -130,12 +130,12 @@ function createDropdown(inputId) {
 }
 
 
-function initDropdowns() {
+function initDropdowns(customListArr) {
   const containerPriority = document.querySelector('.row-3');
   const containerList = document.querySelector('.row-4');
 
   const priorityPicker = createDropdown('priority');
-  const listPicker = createDropdown('list');
+  const listPicker = createDropdown('list', customListArr);
 
   containerPriority.appendChild(priorityPicker);
   containerList.appendChild(listPicker);

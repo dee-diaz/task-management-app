@@ -5,7 +5,7 @@ import SidebarRenderer from './presentation/renderers/SidebarRenderer';
 import ModalRenderer from './presentation/renderers/ModalRenderer';
 import ModalHandler from './presentation/handlers/ModalHandler';
 import FormHandler from './presentation/handlers/FormHandler';
-import { DEFAULT_LISTS, customLists } from './utils/Constants';
+import { DEFAULT_LISTS, customLists, LIST_TYPE } from './utils/Constants';
 import TaskRenderer from './presentation/renderers/TaskRenderer';
 import initDatePickers from './presentation/components/Calendar';
 import initDropdowns from './presentation/components/dropdowns';
@@ -16,7 +16,7 @@ import ListManager from './domain/ListManager';
 // Orchestrates all layers, manages application state
 class App {
   constructor() {
-    this.activeListId = DEFAULT_LISTS.TODAY.id;
+    this.activeListId = DEFAULT_LISTS.TODAY.title;
     this.storage = new LocalStorageAdapter();
     this.taskManager = new TaskManager(this.storage);
     this.listManager = new ListManager(this.storage);
@@ -24,6 +24,7 @@ class App {
     this.userName;
     this.container = document.querySelector('#content');
     this.sidebar = new SidebarRenderer(this.container);
+    this.createInitialCustomLists();
     this.modal = new ModalRenderer(this.container);
     this.modalHandler = new ModalHandler(this.modal, (userName) => {
       this.handleOnboardingComplete(userName);
@@ -50,8 +51,8 @@ class App {
     const mergedLists = { ...DEFAULT_LISTS, ...customLists };
 
     Object.values(mergedLists).forEach((list) => {
-      const count = FilterService.filterByList(tasks, list.id).length;
-      this.sidebar.updateListCounter(list.id, count);
+      const count = FilterService.filterByList(tasks, list.title).length;
+      this.sidebar.updateListCounter(list.title, count);
     });
   }
 
@@ -59,6 +60,16 @@ class App {
     this.storage.save('user-name', userName);
     this.userName = userName;
     this.renderMainApp();
+  }
+
+  createInitialCustomLists() {
+    const storage = this.listManager.getLists();
+    if (!storage.length) {
+      const lists = Object.values(customLists);
+      lists.forEach((list) => {
+        this.listManager.saveList(list.title, list.color);
+      });
+    }
   }
 
   renderCurrentList() {
@@ -69,7 +80,9 @@ class App {
   }
 
   renderMainApp() {
+    const lists = this.listManager.getLists();
     this.sidebar.init(this.userName);
+    this.sidebar.renderLists(lists, LIST_TYPE.CUSTOM);
     this.sidebar.setActiveList(this.activeListId);
     this.updateSidebarCounters();
     this.taskRenderer.init();
@@ -84,7 +97,7 @@ class App {
       this.loadUserName();
       this.renderMainApp();
       initDatePickers();
-      initDropdowns();
+      initDropdowns(this.listManager.getLists());
     }
   }
 
@@ -158,7 +171,8 @@ class App {
         const taskId = target.dataset.id;
         this.lastClickedTaskId = taskId;
         const task = this.taskManager.getTask(taskId);
-        const customList = FilterService.defineCustomList(task);
+        const customLists = this.listManager.getLists();
+        const customList = FilterService.defineCustomList(task, customLists);
 
         this.modal.showTaskModal('edit');
 
@@ -176,8 +190,9 @@ class App {
         priorityInput.value = task.priority;
         listInput.value = customList;
 
+        // const customLists = this.listManager.getLists();
         if (priorityInput.value) this.taskRenderer.highlightPriorityChoice();
-        if (listInput.value) this.taskRenderer.highlightListChoice();
+        if (listInput.value) this.taskRenderer.highlightListChoice(customLists);
       }
 
       if (e.target.closest('#btn-delete')) {
