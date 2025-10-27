@@ -89,7 +89,53 @@ class SidebarRenderer {
 
 
     if (listType === LIST_TYPE.CUSTOM) {
-      const addBtn = document.createElement('button');
+      const addBtn = this.createAddListBtn();
+      listTypeEl.appendChild(addBtn);
+    }
+  }
+
+  renderSingleList(listTitle, markerColor) {
+    const container = document.querySelector('.custom-list');
+
+    const li = document.createElement('li');
+      const button = document.createElement('button');
+      const attrVal = listTitle.toLowerCase().replace(' ', '-');
+      button.setAttribute('data-list', attrVal);
+      const div = document.createElement('div');
+
+      const svgns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgns, 'svg');
+
+
+      svg.setAttribute('width', '12');
+      svg.setAttribute('height', '12');
+      svg.setAttribute('viewBox', '0 0 12 12');
+      svg.setAttribute('fill', 'none');
+      const circle = document.createElementNS(svgns, 'circle');
+      circle.setAttribute('cx', '6');
+      circle.setAttribute('cy', '6');
+      circle.setAttribute('r', '5.5');
+      circle.setAttribute('stroke', markerColor);
+      svg.appendChild(circle);
+      
+
+      const para = document.createElement('p');
+      para.textContent = listTitle;
+
+      const counter = document.createElement('span');
+      counter.textContent = '0';
+
+      div.appendChild(svg);
+      div.appendChild(para);
+      button.appendChild(div);
+      button.appendChild(counter);
+      li.appendChild(button);
+
+      return li;
+  }
+
+  createAddListBtn() {
+    const addBtn = document.createElement('button');
       addBtn.setAttribute('type', 'button');
       addBtn.className = 'btn-add-list';
       const svgns = 'http://www.w3.org/2000/svg';
@@ -111,8 +157,8 @@ class SidebarRenderer {
 
       addBtn.appendChild(svg);
       addBtn.appendChild(btnText);
-      listTypeEl.appendChild(addBtn);
-    }
+
+      return addBtn;
   }
 
   updateListCounter(listId, count) {

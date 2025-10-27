@@ -127,10 +127,16 @@ class App {
         if (listForm)
           listForm.addEventListener('submit', (e) => {
             const listTitle = this.formHandler.handleListAdd(e);
-
+            
             if (listTitle) {
+              const ul = container.querySelector('ul');
               this.listManager.saveList(listTitle);
+              const addedList = this.listManager.getLists().at(-1); 
               this.sidebar.removeAddListInput();
+              const listItem = this.sidebar.renderSingleList(addedList.title, addedList.markerColor);
+              ul.appendChild(listItem);
+              const addBtn = this.sidebar.createAddListBtn();
+              container.appendChild(addBtn);
             }
           });
       }
