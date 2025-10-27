@@ -1,4 +1,5 @@
-import { PRIORITY, customLists, LIST_COLORS } from '../../utils/Constants';
+import { PRIORITY } from '../../utils/Constants';
+import ValidationService from '../../services/ValidationService';
 
 // Form interaction management
 class FormHandler {
@@ -33,18 +34,9 @@ class FormHandler {
     e.preventDefault();
     const formData = this.saveFormData(e.target);
     const listTitle = Object.values(formData).join('');
+    const isValidated = ValidationService.validateInput(listTitle);
 
-    const randomColorKey = () => {
-      const keys = Object.keys(LIST_COLORS);
-      const randomIndex = Math.floor(Math.random() * keys.length);
-      return keys[randomIndex];
-    };
-
-    customLists[listTitle.toLowerCase()] = {
-      id: listTitle,
-      color: LIST_COLORS[randomColorKey()],
-    };
-    console.log(customLists);
+    if (isValidated) return listTitle;
   }
 
   saveFormData(form) {

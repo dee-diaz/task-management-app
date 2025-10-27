@@ -48,9 +48,10 @@ class App {
   // Sidebar interactions
   updateSidebarCounters() {
     const tasks = this.taskManager.getTasks();
-    const mergedLists = { ...DEFAULT_LISTS, ...customLists };
+    const customLists = this.listManager.getLists();
+    const mergedLists = Object.values(DEFAULT_LISTS).concat(customLists);
 
-    Object.values(mergedLists).forEach((list) => {
+    mergedLists.forEach((list) => {
       const count = FilterService.filterByList(tasks, list.title).length;
       this.sidebar.updateListCounter(list.title, count);
     });
@@ -125,7 +126,12 @@ class App {
 
         if (listForm)
           listForm.addEventListener('submit', (e) => {
-            this.formHandler.handleListAdd(e);
+            const listTitle = this.formHandler.handleListAdd(e);
+
+            if (listTitle) {
+              this.listManager.saveList(listTitle);
+              this.sidebar.removeAddListInput();
+            }
           });
       }
 
