@@ -66,7 +66,7 @@ class SidebarRenderer {
         circle.setAttribute('cx', '6');
         circle.setAttribute('cy', '6');
         circle.setAttribute('r', '5.5');
-        circle.setAttribute('stroke', list.color);
+        circle.setAttribute('stroke', list.markerColor);
         svg.appendChild(circle);
       }
 
