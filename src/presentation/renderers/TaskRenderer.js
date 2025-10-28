@@ -1,5 +1,5 @@
 import { DEFAULT_LISTS, PRIORITY } from '../../utils/Constants';
-import { format } from 'date-fns';
+import { format, parse, isBefore, startOfToday } from 'date-fns';
 import FilterService from '../../services/FilterService';
 
 class TaskRenderer {
@@ -60,7 +60,18 @@ class TaskRenderer {
     rowBottom.className = 'row-bottom';
     const due = document.createElement('span');
     due.className = 'due';
-    if (deadlineDate) due.textContent = `Due ${deadlineDate}`;
+    // if (deadlineDate) due.textContent = `Due ${deadlineDate}`;
+
+    if (deadlineDate) {
+      due.textContent = `Due ${deadlineDate}`;
+      const taskDate = parse(deadlineDate, 'dd/MM/yyyy', new Date());
+      const today = startOfToday();
+      if (isBefore(taskDate, today)) {
+        due.textContent = `Past due ${deadlineDate}`;
+        due.classList.add('past-due');
+      }
+    }
+
     const customListName = document.createElement('span');
     customListName.className = 'custom-list';
     customListName.textContent = list;

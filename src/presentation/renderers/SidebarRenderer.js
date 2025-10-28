@@ -94,9 +94,7 @@ class SidebarRenderer {
     }
   }
 
-  renderSingleList(listTitle, markerColor) {
-    const container = document.querySelector('.custom-list');
-
+  createSingleList(listTitle, markerColor) {
     const li = document.createElement('li');
       const button = document.createElement('button');
       const attrVal = listTitle.toLowerCase().replace(' ', '-');

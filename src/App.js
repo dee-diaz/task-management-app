@@ -45,7 +45,6 @@ class App {
     this.userName = this.storage.get('user-name');
   }
 
-  // Sidebar interactions
   updateSidebarCounters() {
     const tasks = this.taskManager.getTasks();
     const customLists = this.listManager.getLists();
@@ -97,6 +96,7 @@ class App {
     } else {
       this.loadUserName();
       this.renderMainApp();
+      this.taskManager.checkOutdatedTasks();
       initDatePickers();
       initDropdowns(this.listManager.getLists());
     }
@@ -124,21 +124,29 @@ class App {
         const listForm = this.sidebar.createAddListInput();
         container.appendChild(listForm);
 
-        if (listForm)
+        if (listForm) {
           listForm.addEventListener('submit', (e) => {
             const listTitle = this.formHandler.handleListAdd(e);
-            
+
             if (listTitle) {
               const ul = container.querySelector('ul');
               this.listManager.saveList(listTitle);
-              const addedList = this.listManager.getLists().at(-1); 
+              const addedList = this.listManager.getLists().at(-1);
               this.sidebar.removeAddListInput();
-              const listItem = this.sidebar.renderSingleList(addedList.title, addedList.markerColor);
+              const listItem = this.sidebar.createSingleList(
+                addedList.title,
+                addedList.markerColor,
+              );
               ul.appendChild(listItem);
               const addBtn = this.sidebar.createAddListBtn();
               container.appendChild(addBtn);
             }
           });
+
+          listForm.addEventListener('click', () => {
+            // this.formHandler.closeOnOutsideClick();
+          })
+        }
       }
 
       if (e.target.matches('#modal-start .btn-continue')) {
@@ -202,7 +210,6 @@ class App {
         priorityInput.value = task.priority;
         listInput.value = customList;
 
-        // const customLists = this.listManager.getLists();
         if (priorityInput.value) this.taskRenderer.highlightPriorityChoice();
         if (listInput.value) this.taskRenderer.highlightListChoice(customLists);
       }
@@ -219,6 +226,7 @@ class App {
         const values = this.formHandler.saveFormData(this.form);
         this.taskManager.editTask(this.lastClickedTaskId, values);
         this.modal.closeTaskModal();
+        this.updateSidebarCounters();
         this.renderCurrentList();
       }
     });

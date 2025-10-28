@@ -1,6 +1,7 @@
 // CRUD operations, data management
 import Task from './Task';
 import { DEFAULT_LISTS, customLists } from '../utils/Constants';
+import { format } from 'date-fns';
 
 class TaskManager {
   constructor(storageAdapter) {
@@ -25,20 +26,22 @@ class TaskManager {
   }
 
   saveTask(title, description, scheduleDate, deadlineDate, priority, list, id) {
+    const today = format(new Date(), 'dd/MM/yyyy');
     const newTask = new Task(title);
     description
       ? (newTask.description = description)
       : (newTask.description = '');
     scheduleDate
       ? (newTask.scheduleDate = scheduleDate)
-      : (newTask.scheduleDate = DEFAULT_LISTS.TODAY.title);
+      : (newTask.scheduleDate = '');
     deadlineDate
       ? (newTask.deadlineDate = deadlineDate)
       : (newTask.deadlineDate = '');
     priority ? (newTask.priority = priority) : (newTask.priority = '');
 
     // List logic
-    if (scheduleDate === 'Today' || !scheduleDate) newTask._lists.push('Today');
+    if (scheduleDate === today || !scheduleDate)
+      newTask._lists.push(DEFAULT_LISTS.TODAY.title);
     if (list) newTask._lists.push(list);
     if (id) newTask._id = id;
     this.tasks.push(newTask);
@@ -68,6 +71,7 @@ class TaskManager {
   }
 
   editTask(taskId, formData) {
+    const today = format(new Date(), 'dd/MM/yyyy');
     const tasks = this.storage.get('tasks');
     const index = tasks.findIndex((task) => task._id === taskId);
     const task = tasks[index];
@@ -78,6 +82,20 @@ class TaskManager {
       task.scheduleDate = formData['task-schedule'];
       task.deadlineDate = formData['task-deadline'];
       task.priority = formData['priority'];
+
+      const hasTodayInListArr = task._lists.includes(DEFAULT_LISTS.TODAY.title);
+
+      if (task.scheduleDate === today && !hasTodayInListArr) {
+        task._lists.push(DEFAULT_LISTS.TODAY.title);
+      }
+      else if (
+        task.scheduleDate &&
+        task.scheduleDate !== today &&
+        hasTodayInListArr
+      ) {
+        const todayIndex = task._lists.indexOf(DEFAULT_LISTS.TODAY.title);
+        if (todayIndex !== -1) task._lists.splice(todayIndex, 1);
+      }
 
       if (formData['list']) {
         const newList = formData['list'];
@@ -102,7 +120,10 @@ class TaskManager {
     const task = tasks[index];
     task.completed = state;
 
-    if (task.completed && !task._lists.includes(DEFAULT_LISTS.COMPLETED.title)) {
+    if (
+      task.completed &&
+      !task._lists.includes(DEFAULT_LISTS.COMPLETED.title)
+    ) {
       task._lists.push(DEFAULT_LISTS.COMPLETED.title);
     } else {
       const index = task._lists.findIndex(
@@ -112,6 +133,24 @@ class TaskManager {
     }
 
     this.tasks = tasks;
+    this.storage.save('tasks', this.tasks);
+  }
+
+  checkOutdatedTasks() {
+    const today = format(new Date(), 'dd/MM/yyyy');
+
+    this.tasks.forEach((task) => {
+      const hasTodayInListArr = task._lists.includes(DEFAULT_LISTS.TODAY.title);
+
+      if (
+        !hasTodayInListArr &&
+        task.scheduleDate &&
+        task.scheduleDate === today
+      ) {
+        task._lists.push(DEFAULT_LISTS.TODAY.title);
+      }
+    });
+
     this.storage.save('tasks', this.tasks);
   }
 }

@@ -17,7 +17,7 @@ class Task {
 
 export function createDate() {
   const now = new Date();
-  return format(now, 'dd-MM-yyyy HH:mm');
+  return format(now, 'dd/MM/yyyy');
 }
 
 export default Task;
