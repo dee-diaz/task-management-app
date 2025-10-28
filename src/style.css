@@ -40,6 +40,18 @@
 }
 
 /* Mini reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 *,
 *::before,
 *::after {
@@ -226,6 +238,16 @@ h3 {
 }
 
 .sidebar {
+  width: 18.375rem;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  z-index: 100;
+  transform: translateX(-60rem);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -384,6 +406,11 @@ h3 {
   }
 }
 
+.main {
+  margin-top: 4rem;
+  padding: 0 1rem;
+}
+
 dialog {
   padding: 1.25rem;
   background-color: var(--clr-bg-primary);
@@ -400,8 +427,11 @@ dialog {
 }
 
 dialog#modal-task {
-  width: 100%;
-  min-height: 16.5rem;
+  margin-inline: auto;
+  margin-top: 7rem;
+  width: 90%;
+  max-width: 28rem;
+  min-height: 14.25rem;
   border-radius: 0.75rem;
   position: relative;
   padding: 1rem;
@@ -427,7 +457,6 @@ dialog#modal-task {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
 
     > div {
       display: flex;
@@ -456,12 +485,17 @@ dialog#modal-task {
   }
 
   .row-3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
     position: relative;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--clr-divider);
+    margin-top: 1.5rem;
   }
 
   .row-4 {
+    margin-top: 1rem;
     .actions {
       display: flex;
       align-items: center;
@@ -522,7 +556,7 @@ dialog#modal-task {
   width: 100%;
   background-color: var(--clr-bg-secondary);
   color: var(--clr-text-light-blue);
-  font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1rem);
+  font-size: 1rem;
   gap: 0.5rem;
 
   &.hidden {
@@ -694,7 +728,7 @@ dialog#modal-task {
 
   .row-bottom {
     margin-top: 0.25rem;
-    padding-left: 2.25rem;
+    padding-left: 1.75rem;
 
     > * {
       color: var(--clr-text-secondary);
@@ -976,6 +1010,9 @@ dialog#modal-task {
   }
 
   .sidebar {
+    position: revert;
+    transform: initial;
+    min-width: 21.75rem;
     padding: 2rem;
     border-radius: 1.5rem;
     border: 1px solid var(--clr-divider, #1c2533);
@@ -984,6 +1021,10 @@ dialog#modal-task {
       width: 2.5rem;
       height: 2.5rem;
     }
+  }
+
+  .main {
+    padding: 1rem;
   }
 
   dialog {
@@ -1023,8 +1064,9 @@ dialog#modal-task {
   }
 
   dialog#modal-task {
+    margin-top: 11.125rem;
     width: 36.5rem;
-    min-height: 14.25rem;
+    min-height: 16.5rem;
   }
 
   .main {

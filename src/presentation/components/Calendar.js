@@ -4,15 +4,22 @@ import localeEn from 'air-datepicker/locale/en';
 import 'air-datepicker/air-datepicker.css';
 
 function initDatePickers() {
-  const options = {
+  const baseOptions = {
     locale: localeEn,
     container: document.querySelector('#modal-task'),
     classes: 'custom-calendar-theme',
     dateFormat: 'dd/MM/yyyy',
+    autoClose: true,
   };
 
-  ['#task-schedule', '#task-deadline'].forEach((selector) => {
-    new AirDatepicker(selector, options);
+  new AirDatepicker('#task-schedule', {
+    ...baseOptions,
+    position: 'bottom left',
+  });
+
+  new AirDatepicker('#task-deadline', {
+    ...baseOptions,
+    position: 'bottom right',
   });
 }
 
