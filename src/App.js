@@ -108,11 +108,13 @@ class App {
 
     document.addEventListener('click', (e) => {
       if (e.target.matches('#btn-add')) {
+        this.lastClickedTaskId = null;
         this.form.reset();
         this.modal.showTaskModal();
       }
 
       if (e.target.closest('#btn-close-modal')) {
+        this.lastClickedTaskId = null;
         this.modal.closeTaskModal();
       }
 
@@ -245,7 +247,7 @@ class App {
     document.querySelector('#modal-task').addEventListener('click', (e) => {
       const closed = this.modal.closeOnOutsideClick(e);
 
-      if (closed) {
+      if (closed && this.lastClickedTaskId) {
         const values = this.formHandler.saveFormData(this.form);
         this.taskManager.editTask(this.lastClickedTaskId, values);
         this.updateSidebarCounters();
@@ -283,7 +285,7 @@ class App {
         values['priority'],
         values['list'],
       );
-
+      this.lastClickedTaskId = null;
       this.form.reset();
       this.modal.closeTaskModal();
       this.renderCurrentList();
