@@ -23,7 +23,7 @@ class App {
     this.firstStart = this.checkFirstStart();
     this.userName;
     this.container = document.querySelector('#content');
-    this.sidebar = new SidebarRenderer(this.container);
+    this.sidebar = new SidebarRenderer(this.container, '.sidebar');
     this.createInitialCustomLists();
     this.modal = new ModalRenderer(this.container);
     this.modalHandler = new ModalHandler(this.modal, (userName) => {
@@ -107,6 +107,26 @@ class App {
     const listPicker = document.querySelector('.list-picker');
 
     document.addEventListener('click', (e) => {
+      const MOBILE_BREAKPOINT = 992;
+      const sidebar = document.querySelector('.sidebar');
+      if (
+        e.target.closest('.btn-sidebar') &&
+        window.innerWidth < MOBILE_BREAKPOINT
+      ) {
+        if (sidebar) sidebar.classList.add('visible');
+      }
+
+      if (window.innerWidth < MOBILE_BREAKPOINT) {
+        if (
+          sidebar &&
+          sidebar.classList.contains('visible') &&
+          !e.target.closest('.sidebar') &&
+          !e.target.closest('.btn-sidebar')
+        ) {
+          sidebar.classList.remove('visible');
+        }
+      }
+
       if (e.target.matches('#btn-add')) {
         this.lastClickedTaskId = null;
         this.form.reset();
@@ -147,7 +167,7 @@ class App {
 
           listForm.addEventListener('click', () => {
             // this.formHandler.closeOnOutsideClick();
-          })
+          });
         }
       }
 
