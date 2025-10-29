@@ -1052,8 +1052,9 @@ dialog#modal-task {
   }
 
   .main {
+    max-width: 34rem;
     margin-top: 4rem;
-    padding: 1rem;
+    padding: 0;
   }
 
   dialog {
@@ -1102,10 +1103,6 @@ dialog#modal-task {
       display: flex;
       justify-content: space-between;
     }
-  }
-
-  .main {
-    max-width: 34rem;
   }
 
   .priority-picker,
