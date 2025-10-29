@@ -60,6 +60,8 @@ class App {
     this.storage.save('user-name', userName);
     this.userName = userName;
     this.renderMainApp();
+    initDatePickers();
+    initDropdowns(this.listManager.getLists());
   }
 
   createInitialCustomLists() {
