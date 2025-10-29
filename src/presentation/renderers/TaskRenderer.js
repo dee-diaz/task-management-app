@@ -60,7 +60,6 @@ class TaskRenderer {
     rowBottom.className = 'row-bottom';
     const due = document.createElement('span');
     due.className = 'due';
-    // if (deadlineDate) due.textContent = `Due ${deadlineDate}`;
 
     if (deadlineDate) {
       due.textContent = `Due ${deadlineDate}`;

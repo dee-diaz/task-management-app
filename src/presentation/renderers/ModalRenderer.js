@@ -250,7 +250,7 @@ class ModalRenderer {
     const listItems = modal.querySelectorAll('li.active');
     const submitBtn = modal.querySelector('button[type="submit"]');
 
-    if (listItems) listItems.forEach(item => item.classList.remove('active'));
+    if (listItems) listItems.forEach((item) => item.classList.remove('active'));
 
     if (!submitBtn) {
       const row4 = document.querySelector('.row-4');

@@ -228,7 +228,6 @@ h3 {
   color: var(--clr-text-light-blue);
   font-size: clamp(1.875rem, 1.4712rem + 1.7949vw, 2.75rem);
   font-weight: 700;
-  margin-top: 1.25rem;
 }
 
 #todays-date {
@@ -496,6 +495,7 @@ dialog#modal-task {
 
   .row-4 {
     margin-top: 1rem;
+
     .actions {
       display: flex;
       align-items: center;
@@ -944,8 +944,8 @@ dialog#modal-task {
 }
 
 .priority-picker {
-  right: 0;
-  top: 70%;
+  left: 0;
+  top: 86%;
 
   li {
     .exclamation {
@@ -1066,7 +1066,13 @@ dialog#modal-task {
   dialog#modal-task {
     margin-top: 11.125rem;
     width: 36.5rem;
-    min-height: 16.5rem;
+    max-width: initial;
+    min-height: initial;
+
+    .row-3 {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .main {
@@ -1086,5 +1092,11 @@ dialog#modal-task {
         }
       }
     }
+  }
+
+  .priority-picker {
+    left: initial;
+    right: 0;
+    top: 70%;
   }
 }

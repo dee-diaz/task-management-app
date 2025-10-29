@@ -1,11 +1,12 @@
 // CRUD operations, data management
 import Task from './Task';
-import { DEFAULT_LISTS, customLists } from '../utils/Constants';
+import { DEFAULT_LISTS } from '../utils/Constants';
 import { format } from 'date-fns';
 
 class TaskManager {
-  constructor(storageAdapter) {
+  constructor(storageAdapter, listManager) {
     this.storage = storageAdapter;
+    this.listManager = listManager;
     this.tasks = this.loadTasks();
   }
 
@@ -87,8 +88,7 @@ class TaskManager {
 
       if (task.scheduleDate === today && !hasTodayInListArr) {
         task._lists.push(DEFAULT_LISTS.TODAY.title);
-      }
-      else if (
+      } else if (
         task.scheduleDate &&
         task.scheduleDate !== today &&
         hasTodayInListArr
@@ -99,11 +99,13 @@ class TaskManager {
 
       if (formData['list']) {
         const newList = formData['list'];
-        const index = task._lists.findIndex(
-          (list) => customLists[list.toLowerCase()],
-        );
-        if (index !== -1) {
-          task._lists[index] = newList;
+        const allCustomLists = this.listManager.getLists();
+
+        const customListIndex = task._lists.findIndex((list) => {
+          return allCustomLists.some((customList) => customList.title === list);
+        });
+        if (customListIndex !== -1) {
+          task._lists[customListIndex] = newList;
         } else {
           task._lists.push(newList);
         }

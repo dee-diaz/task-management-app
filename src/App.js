@@ -18,8 +18,8 @@ class App {
   constructor() {
     this.activeListId = DEFAULT_LISTS.TODAY.title;
     this.storage = new LocalStorageAdapter();
-    this.taskManager = new TaskManager(this.storage);
     this.listManager = new ListManager(this.storage);
+    this.taskManager = new TaskManager(this.storage, this.listManager);
     this.firstStart = this.checkFirstStart();
     this.userName;
     this.container = document.querySelector('#content');
