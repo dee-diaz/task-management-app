@@ -105,17 +105,36 @@ class App {
   }
 
   bindEvents() {
+    const MOBILE_BREAKPOINT = 992;
     const priorityPicker = document.querySelector('.priority-picker');
     const listPicker = document.querySelector('.list-picker');
 
     document.addEventListener('click', (e) => {
-      const MOBILE_BREAKPOINT = 992;
       const sidebar = document.querySelector('.sidebar');
       if (
         e.target.closest('.btn-sidebar') &&
         window.innerWidth < MOBILE_BREAKPOINT
       ) {
         if (sidebar) sidebar.classList.add('visible');
+      }
+
+      if (e.target.closest('[data-list]')) {
+        const target = e.target.closest('[data-list]');
+        const formattedListId =
+          target.dataset.list[0].toUpperCase() +
+          target.dataset.list.slice(1).replace('-', ' ');
+        this.activeListId = formattedListId;
+        this.sidebar.setActiveList(this.activeListId);
+        this.taskRenderer.cleanListTitle();
+        this.taskRenderer.renderListTitle(this.activeListId);
+        this.renderCurrentList();
+
+        if (window.innerWidth < MOBILE_BREAKPOINT) {
+          const sidebar = document.querySelector('.sidebar');
+          if (sidebar) sidebar.classList.remove('visible');
+        }
+
+        return;
       }
 
       if (window.innerWidth < MOBILE_BREAKPOINT) {
@@ -192,18 +211,6 @@ class App {
 
       if (e.target.id !== 'list' && listPicker) {
         listPicker.classList.remove('visible');
-      }
-
-      if (e.target.closest('[data-list]')) {
-        const target = e.target.closest('[data-list]');
-        const formattedListId =
-          target.dataset.list[0].toUpperCase() +
-          target.dataset.list.slice(1).replace('-', ' ');
-        this.activeListId = formattedListId;
-        this.sidebar.setActiveList(this.activeListId);
-        this.taskRenderer.cleanListTitle();
-        this.taskRenderer.renderListTitle(this.activeListId);
-        this.renderCurrentList();
       }
 
       // Edit task

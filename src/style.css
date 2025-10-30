@@ -413,6 +413,13 @@ h3 {
   }
 }
 
+.sidebar.visible,
+.sidebar.visible *,
+.sidebar.visible button,
+.sidebar.visible a {
+  pointer-events: auto !important;
+}
+
 .main {
   margin-top: 1.5rem;
   padding: 0 1rem;
